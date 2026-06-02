@@ -30,18 +30,21 @@ function normalizeYoutubeUrl(url: string) {
 }
 
 function getNextVideoNumber(videos: Video[]) {
-  const highestNumber = videos.reduce((highest, video) => {
-    const value = Number.parseInt(video.number, 10);
-    return Number.isFinite(value) && value > highest ? value : highest;
-  }, 9);
+  return String(videos.length + 1).padStart(2, "0");
+}
 
-  return String(Math.max(highestNumber + 1, 10)).padStart(2, "0");
+function renumberVideos(videos: Video[]) {
+  return videos.map((video, index) => ({
+    ...video,
+    number: String(index + 1).padStart(2, "0")
+  }));
 }
 
 export default function AdminPanel({ initialVideos }: { initialVideos: Video[] }) {
   const [videos, setVideos] = useState<Video[]>(initialVideos);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [justAdded, setJustAdded] = useState(false);
   const [saveMessage, setSaveMessage] = useState("");
 
   useEffect(() => {
@@ -85,6 +88,15 @@ export default function AdminPanel({ initialVideos }: { initialVideos: Video[] }
         youtubeUrl: ""
       }
     ]);
+    setJustAdded(true);
+    setSaveMessage("");
+    window.setTimeout(() => setJustAdded(false), 1400);
+  }
+
+  function deleteVideo(index: number) {
+    setVideos((currentVideos) =>
+      renumberVideos(currentVideos.filter((_, currentIndex) => currentIndex !== index))
+    );
     setSaveMessage("");
   }
 
@@ -127,8 +139,12 @@ export default function AdminPanel({ initialVideos }: { initialVideos: Video[] }
           </p>
         </div>
         <div className="adminActions">
-          <button className="button secondary" onClick={addVideo} type="button">
-            Agregar video
+          <button
+            className={`button secondary addVideoButton ${justAdded ? "added" : ""}`}
+            onClick={addVideo}
+            type="button"
+          >
+            {justAdded ? "Video agregado" : "Agregar video"}
           </button>
           <button className="button primary" onClick={saveChanges} type="button">
             {isSaving ? "Guardando..." : "Guardar cambios"}
@@ -159,6 +175,13 @@ export default function AdminPanel({ initialVideos }: { initialVideos: Video[] }
           <article className="adminVideoCard" key={video.number}>
             <div className="adminVideoTop">
               <span>Video {video.number}</span>
+              <button
+                className="deleteVideoButton"
+                onClick={() => deleteVideo(index)}
+                type="button"
+              >
+                Borrar
+              </button>
             </div>
 
             <label>
