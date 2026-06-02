@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 
 type Video = {
@@ -9,8 +9,6 @@ type Video = {
   topic: string;
   youtubeUrl?: string;
 };
-
-const STORAGE_KEY = "ia-para-todos-admin-videos";
 
 function normalizeYoutubeUrl(url: string) {
   if (!url.trim()) {
@@ -32,15 +30,22 @@ function normalizeYoutubeUrl(url: string) {
 }
 
 export default function AdminPanel({ initialVideos }: { initialVideos: Video[] }) {
-  const [videos, setVideos] = useState<Video[]>(() => {
-    if (typeof window === "undefined") {
-      return initialVideos;
+  const [videos, setVideos] = useState<Video[]>(initialVideos);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveMessage, setSaveMessage] = useState("");
+
+  useEffect(() => {
+    async function loadVideos() {
+      const response = await fetch("/api/videos", { cache: "no-store" });
+      if (response.ok) {
+        setVideos(await response.json());
+      }
+      setIsLoading(false);
     }
 
-    const saved = window.localStorage.getItem(STORAGE_KEY);
-    return saved ? JSON.parse(saved) : initialVideos;
-  });
-  const [saveMessage, setSaveMessage] = useState("");
+    loadVideos();
+  }, []);
 
   const publishedCount = useMemo(
     () => videos.filter((video) => Boolean(video.youtubeUrl)).length,
@@ -61,9 +66,25 @@ export default function AdminPanel({ initialVideos }: { initialVideos: Video[] }
     setSaveMessage("");
   }
 
-  function saveChanges() {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(videos));
-    setSaveMessage("Cambios guardados. Vuelve al sitio para verlos en esta sesión.");
+  async function saveChanges() {
+    setIsSaving(true);
+    setSaveMessage("");
+
+    const response = await fetch("/api/videos", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(videos)
+    });
+
+    setIsSaving(false);
+
+    if (!response.ok) {
+      const body = await response.json();
+      setSaveMessage(body.message ?? "No se pudieron guardar los cambios.");
+      return;
+    }
+
+    setSaveMessage("Cambios guardados. Ya se verán en la página pública.");
   }
 
   async function logout() {
@@ -85,7 +106,7 @@ export default function AdminPanel({ initialVideos }: { initialVideos: Video[] }
         </div>
         <div className="adminActions">
           <button className="button primary" onClick={saveChanges} type="button">
-            Guardar cambios
+            {isSaving ? "Guardando..." : "Guardar cambios"}
           </button>
           <button className="button secondary" onClick={logout} type="button">
             Cerrar sesión
@@ -105,6 +126,8 @@ export default function AdminPanel({ initialVideos }: { initialVideos: Video[] }
       </section>
 
       {saveMessage ? <div className="saveMessage">{saveMessage}</div> : null}
+
+      {isLoading ? <div className="saveMessage">Cargando videos...</div> : null}
 
       <section className="adminVideoList" aria-label="Videos del proyecto">
         {videos.map((video, index) => (

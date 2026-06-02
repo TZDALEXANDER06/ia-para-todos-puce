@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type Video = {
   number: string;
@@ -8,8 +8,6 @@ type Video = {
   topic: string;
   youtubeUrl?: string;
 };
-
-const STORAGE_KEY = "ia-para-todos-admin-videos";
 
 function getYoutubeEmbedUrl(url?: string) {
   if (!url?.trim()) {
@@ -37,14 +35,18 @@ function getYoutubeEmbedUrl(url?: string) {
 }
 
 export default function VideosSection({ initialVideos }: { initialVideos: Video[] }) {
-  const [videos] = useState<Video[]>(() => {
-    if (typeof window === "undefined") {
-      return initialVideos;
+  const [videos, setVideos] = useState<Video[]>(initialVideos);
+
+  useEffect(() => {
+    async function loadVideos() {
+      const response = await fetch("/api/videos", { cache: "no-store" });
+      if (response.ok) {
+        setVideos(await response.json());
+      }
     }
 
-    const saved = window.localStorage.getItem(STORAGE_KEY);
-    return saved ? JSON.parse(saved) : initialVideos;
-  });
+    loadVideos();
+  }, []);
 
   return (
     <div className="videoGrid">
