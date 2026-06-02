@@ -22,6 +22,20 @@ npm run dev
 
 Luego abre `http://localhost:3000`.
 
+## Publicacion con GitHub Pages
+
+El repositorio incluye el workflow `.github/workflows/deploy-pages.yml`.
+Cuando el codigo este en `main`, GitHub Actions construye una version estatica y la publica en:
+
+```text
+https://tzdalexander06.github.io/ia-para-todos-puce/
+```
+
+En GitHub Pages se publica la web publica. El panel `/admin` requiere servidor
+para login, cookies y guardado real, por eso en GitHub Pages muestra un aviso.
+Para usar el panel en linea se recomienda Vercel, Netlify o una base de datos
+como Supabase/Firebase.
+
 ## Configuracion
 
 Copia `.env.example` a `.env.local` y ajusta:
