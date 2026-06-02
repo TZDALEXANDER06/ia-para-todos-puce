@@ -29,6 +29,15 @@ function normalizeYoutubeUrl(url: string) {
   }
 }
 
+function getNextVideoNumber(videos: Video[]) {
+  const highestNumber = videos.reduce((highest, video) => {
+    const value = Number.parseInt(video.number, 10);
+    return Number.isFinite(value) && value > highest ? value : highest;
+  }, 9);
+
+  return String(Math.max(highestNumber + 1, 10)).padStart(2, "0");
+}
+
 export default function AdminPanel({ initialVideos }: { initialVideos: Video[] }) {
   const [videos, setVideos] = useState<Video[]>(initialVideos);
   const [isLoading, setIsLoading] = useState(true);
@@ -66,6 +75,19 @@ export default function AdminPanel({ initialVideos }: { initialVideos: Video[] }
     setSaveMessage("");
   }
 
+  function addVideo() {
+    setVideos((currentVideos) => [
+      ...currentVideos,
+      {
+        number: getNextVideoNumber(currentVideos),
+        title: "",
+        topic: "",
+        youtubeUrl: ""
+      }
+    ]);
+    setSaveMessage("");
+  }
+
   async function saveChanges() {
     setIsSaving(true);
     setSaveMessage("");
@@ -100,11 +122,14 @@ export default function AdminPanel({ initialVideos }: { initialVideos: Video[] }
           <p className="eyebrow">Panel administrador</p>
           <h1>Gestión de videos</h1>
           <p>
-            Edita el título, la descripción y el enlace de YouTube. El botón
-            guardar actualiza lo que se ve en este navegador.
+            Edita el título, la descripción y el enlace de YouTube. También
+            puedes agregar nuevas tarjetas para publicar más videos.
           </p>
         </div>
         <div className="adminActions">
+          <button className="button secondary" onClick={addVideo} type="button">
+            Agregar video
+          </button>
           <button className="button primary" onClick={saveChanges} type="button">
             {isSaving ? "Guardando..." : "Guardar cambios"}
           </button>
@@ -140,6 +165,7 @@ export default function AdminPanel({ initialVideos }: { initialVideos: Video[] }
               Título
               <input
                 onChange={(event) => updateVideo(index, "title", event.target.value)}
+                placeholder="Título del video"
                 value={video.title}
               />
             </label>
@@ -148,6 +174,7 @@ export default function AdminPanel({ initialVideos }: { initialVideos: Video[] }
               Descripción
               <textarea
                 onChange={(event) => updateVideo(index, "topic", event.target.value)}
+                placeholder="Descripción breve del video"
                 rows={4}
                 value={video.topic}
               />

@@ -332,6 +332,53 @@ h3 {
   text-align: center;
 }
 
+.moreVideos {
+  display: flex;
+  justify-content: center;
+  padding-top: 34px;
+}
+
+.moreVideos a {
+  color: var(--teal);
+  font-size: 1.08rem;
+  font-weight: 900;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 5px;
+}
+
+.moreVideos a:hover {
+  color: var(--navy);
+}
+
+.videosPageHero {
+  background: #eaf4f2;
+  display: grid;
+  gap: 18px;
+  padding-bottom: 64px;
+  padding-top: 72px;
+}
+
+.videosPageHero h1 {
+  color: var(--navy);
+  font-size: clamp(2.6rem, 5vw, 5rem);
+  line-height: 1;
+  margin-bottom: 0;
+  max-width: 960px;
+}
+
+.videosPageHero p:last-child {
+  color: var(--muted);
+  font-size: clamp(1.05rem, 1.7vw, 1.35rem);
+  line-height: 1.6;
+  margin-bottom: 0;
+  max-width: 840px;
+}
+
+.videosPageList {
+  padding-top: 64px;
+}
+
 .mediaBand {
   align-items: start;
   background: #eaf4f2;

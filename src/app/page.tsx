@@ -89,7 +89,7 @@ export default function Home() {
           <h2>Videos educativos</h2>
           <a className="textLink" href={youtubePlaylistUrl}>Playlist en YouTube</a>
         </div>
-        <VideosSection initialVideos={videos} />
+        <VideosSection initialVideos={videos} showMoreLink />
       </section>
 
       <section className="section mediaBand" id="podcast">

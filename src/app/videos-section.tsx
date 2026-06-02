@@ -1,12 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 type Video = {
   number: string;
   title: string;
   topic: string;
   youtubeUrl?: string;
+};
+
+type VideosSectionProps = {
+  initialVideos: Video[];
+  showAll?: boolean;
+  showMoreLink?: boolean;
 };
 
 function getYoutubeEmbedUrl(url?: string) {
@@ -34,7 +41,11 @@ function getYoutubeEmbedUrl(url?: string) {
   }
 }
 
-export default function VideosSection({ initialVideos }: { initialVideos: Video[] }) {
+export default function VideosSection({
+  initialVideos,
+  showAll = false,
+  showMoreLink = false
+}: VideosSectionProps) {
   const [videos, setVideos] = useState<Video[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -56,7 +67,7 @@ export default function VideosSection({ initialVideos }: { initialVideos: Video[
   if (isLoading) {
     return (
       <div className="videoGrid">
-        {initialVideos.map((video) => (
+        {(showAll ? initialVideos : initialVideos.slice(0, 8)).map((video) => (
           <article className="videoCard" key={video.number}>
             <div className="videoNumber">{video.number}</div>
             <h3>{video.title}</h3>
@@ -68,33 +79,43 @@ export default function VideosSection({ initialVideos }: { initialVideos: Video[
     );
   }
 
+  const visibleVideos = showAll ? videos : videos.slice(0, 8);
+
   return (
-    <div className="videoGrid">
-      {videos.map((video) => {
-        const embedUrl = getYoutubeEmbedUrl(video.youtubeUrl);
+    <>
+      <div className="videoGrid">
+        {visibleVideos.map((video) => {
+          const embedUrl = getYoutubeEmbedUrl(video.youtubeUrl);
 
-        return (
-          <article className="videoCard" key={video.number}>
-            <div className="videoNumber">{video.number}</div>
-            <h3>{video.title}</h3>
-            <p>{video.topic}</p>
+          return (
+            <article className="videoCard" key={video.number}>
+              <div className="videoNumber">{video.number}</div>
+              <h3>{video.title}</h3>
+              <p>{video.topic}</p>
 
-            {embedUrl ? (
-              <div className="videoPlayer">
-                <iframe
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                  loading="lazy"
-                  src={embedUrl}
-                  title={video.title}
-                />
-              </div>
-            ) : (
-              <div className="videoPlaceholder">Video pendiente de publicar</div>
-            )}
-          </article>
-        );
-      })}
-    </div>
+              {embedUrl ? (
+                <div className="videoPlayer">
+                  <iframe
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                    loading="lazy"
+                    src={embedUrl}
+                    title={video.title}
+                  />
+                </div>
+              ) : (
+                <div className="videoPlaceholder">Video pendiente de publicar</div>
+              )}
+            </article>
+          );
+        })}
+      </div>
+
+      {showMoreLink ? (
+        <div className="moreVideos">
+          <Link href="/videos">Ver más videos</Link>
+        </div>
+      ) : null}
+    </>
   );
 }
