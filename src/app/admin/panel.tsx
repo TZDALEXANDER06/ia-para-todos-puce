@@ -30,14 +30,19 @@ function normalizeYoutubeUrl(url: string) {
 }
 
 function getNextVideoNumber(videos: Video[]) {
-  return String(videos.length + 1).padStart(2, "0");
+  const nextNumber = videos.length >= 8 ? videos.length + 2 : videos.length + 1;
+  return String(nextNumber).padStart(2, "0");
 }
 
 function renumberVideos(videos: Video[]) {
-  return videos.map((video, index) => ({
-    ...video,
-    number: String(index + 1).padStart(2, "0")
-  }));
+  return videos.map((video, index) => {
+    const number = index < 8 ? index + 1 : index + 2;
+
+    return {
+      ...video,
+      number: String(number).padStart(2, "0")
+    };
+  });
 }
 
 export default function AdminPanel({ initialVideos }: { initialVideos: Video[] }) {
@@ -64,6 +69,28 @@ export default function AdminPanel({ initialVideos }: { initialVideos: Video[] }
     [videos]
   );
 
+  async function persistVideos(nextVideos: Video[], successMessage: string) {
+    setIsSaving(true);
+    setSaveMessage("");
+
+    const response = await fetch("/api/videos", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(nextVideos)
+    });
+
+    setIsSaving(false);
+
+    if (!response.ok) {
+      const body = await response.json();
+      setSaveMessage(body.message ?? "No se pudieron guardar los cambios.");
+      return false;
+    }
+
+    setSaveMessage(successMessage);
+    return true;
+  }
+
   function updateVideo(index: number, field: keyof Video, value: string) {
     setVideos((currentVideos) =>
       currentVideos.map((video, currentIndex) =>
@@ -78,47 +105,53 @@ export default function AdminPanel({ initialVideos }: { initialVideos: Video[] }
     setSaveMessage("");
   }
 
-  function addVideo() {
-    setVideos((currentVideos) => [
-      ...currentVideos,
+  async function addVideo() {
+    const nextVideos = [
+      ...videos,
       {
-        number: getNextVideoNumber(currentVideos),
+        number: getNextVideoNumber(videos),
         title: "",
         topic: "",
         youtubeUrl: ""
       }
-    ]);
+    ];
+
+    setVideos(nextVideos);
     setJustAdded(true);
-    setSaveMessage("");
     window.setTimeout(() => setJustAdded(false), 1400);
+
+    const saved = await persistVideos(
+      nextVideos,
+      "Video agregado y guardado. Ya se mantendrá al actualizar."
+    );
+
+    if (!saved) {
+      setVideos(videos);
+    }
   }
 
-  function deleteVideo(index: number) {
-    setVideos((currentVideos) =>
-      renumberVideos(currentVideos.filter((_, currentIndex) => currentIndex !== index))
+  async function deleteVideo(index: number) {
+    const nextVideos = renumberVideos(
+      videos.filter((_, currentIndex) => currentIndex !== index)
     );
-    setSaveMessage("");
+
+    setVideos(nextVideos);
+
+    const saved = await persistVideos(
+      nextVideos,
+      "Video borrado y numeración actualizada."
+    );
+
+    if (!saved) {
+      setVideos(videos);
+    }
   }
 
   async function saveChanges() {
-    setIsSaving(true);
-    setSaveMessage("");
-
-    const response = await fetch("/api/videos", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(videos)
-    });
-
-    setIsSaving(false);
-
-    if (!response.ok) {
-      const body = await response.json();
-      setSaveMessage(body.message ?? "No se pudieron guardar los cambios.");
-      return;
-    }
-
-    setSaveMessage("Cambios guardados. Ya se verán en la página pública.");
+    await persistVideos(
+      videos,
+      "Cambios guardados. Ya se verán en la página pública."
+    );
   }
 
   async function logout() {
@@ -141,12 +174,18 @@ export default function AdminPanel({ initialVideos }: { initialVideos: Video[] }
         <div className="adminActions">
           <button
             className={`button secondary addVideoButton ${justAdded ? "added" : ""}`}
+            disabled={isSaving}
             onClick={addVideo}
             type="button"
           >
             {justAdded ? "Video agregado" : "Agregar video"}
           </button>
-          <button className="button primary" onClick={saveChanges} type="button">
+          <button
+            className="button primary"
+            disabled={isSaving}
+            onClick={saveChanges}
+            type="button"
+          >
             {isSaving ? "Guardando..." : "Guardar cambios"}
           </button>
           <button className="button secondary" onClick={logout} type="button">
@@ -177,6 +216,7 @@ export default function AdminPanel({ initialVideos }: { initialVideos: Video[] }
               <span>Video {video.number}</span>
               <button
                 className="deleteVideoButton"
+                disabled={isSaving}
                 onClick={() => deleteVideo(index)}
                 type="button"
               >
