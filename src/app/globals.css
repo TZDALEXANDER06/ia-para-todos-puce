@@ -38,7 +38,7 @@ a {
   border-bottom: 1px solid rgba(217, 225, 234, 0.8);
   display: flex;
   justify-content: space-between;
-  min-height: 72px;
+  min-height: 92px;
   padding: 0 5vw;
   position: sticky;
   top: 0;
@@ -56,6 +56,21 @@ a {
 .brand {
   font-weight: 800;
   gap: 10px;
+}
+
+.headerLogo {
+  left: 50%;
+  line-height: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.headerLogo img {
+  display: block;
+  height: auto;
+  width: clamp(260px, 28vw, 430px);
 }
 
 .brandMark {
@@ -622,9 +637,22 @@ h3 {
     position: static;
   }
 
+  .headerLogo {
+    left: auto;
+    order: 2;
+    position: static;
+    top: auto;
+    transform: none;
+  }
+
+  .headerLogo img {
+    width: min(100%, 360px);
+  }
+
   .navLinks {
     flex-wrap: wrap;
     gap: 14px;
+    order: 3;
   }
 
   .hero,

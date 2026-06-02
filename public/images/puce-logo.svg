@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 180" role="img" aria-labelledby="title">
+  <title id="title">Pontificia Universidad Catolica del Ecuador</title>
+  <g fill="none" stroke="#00a7df" stroke-linecap="round" stroke-linejoin="round" stroke-width="10">
+    <path d="M92 14v152" />
+    <path d="M16 90h152" />
+    <path d="M38 38c16-14 35-22 54-22s38 8 54 22" />
+    <path d="M38 142c16 14 35 22 54 22s38-8 54-22" />
+    <path d="M22 64c-5 17-5 35 0 52" />
+    <path d="M162 64c5 17 5 35 0 52" />
+    <path d="M64 22c-17 5-31 15-42 29" />
+    <path d="M120 22c17 5 31 15 42 29" />
+    <path d="M64 158c-17-5-31-15-42-29" />
+    <path d="M120 158c17-5 31-15 42-29" />
+    <path d="M61 54v72l31 28 31-28V54" />
+    <path d="M78 39v84" />
+    <path d="M106 39v84" />
+    <path d="M61 90h62" />
+  </g>
+  <g fill="#123f7b" font-family="Arial, Helvetica, sans-serif" font-weight="800">
+    <text x="205" y="76" font-size="43">Pontificia Universidad</text>
+    <text x="205" y="132" font-size="43">Católica del Ecuador</text>
+  </g>
+</svg>

@@ -13,6 +13,15 @@ export default function Home() {
           <span className="brandMark" aria-hidden="true">IA</span>
           <span>IA para Todos</span>
         </a>
+        <div className="headerLogo" aria-label="Pontificia Universidad Católica del Ecuador">
+          <Image
+            src="/images/puce-logo.svg"
+            alt="Pontificia Universidad Católica del Ecuador"
+            width={720}
+            height={180}
+            priority
+          />
+        </div>
         <div className="navLinks">
           <a href="#videos">Videos</a>
           <a href="#podcast">Podcast</a>
