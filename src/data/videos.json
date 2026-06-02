@@ -64,9 +64,15 @@
     "youtubeUrl": ""
   },
   {
-    "number": "10",
+    "number": "09",
     "title": "video nuevo 10",
     "topic": "chevre video",
     "youtubeUrl": "https://www.youtube.com/watch?v=LhBzmBtNnUg"
+  },
+  {
+    "number": "10",
+    "title": "",
+    "topic": "",
+    "youtubeUrl": ""
   }
 ]
