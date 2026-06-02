@@ -32,6 +32,13 @@ function isValidVideos(value: unknown): value is Video[] {
   );
 }
 
+function renumberVideos(videos: Video[]) {
+  return videos.map((video, index) => ({
+    ...video,
+    number: String(index + 1).padStart(2, "0")
+  }));
+}
+
 async function readVideosFromGithub() {
   const token = process.env.GITHUB_CONTENTS_TOKEN;
   const repository = process.env.GITHUB_REPOSITORY_FULL_NAME;
@@ -58,7 +65,7 @@ async function readVideosFromGithub() {
   }
 
   const videos = await response.json();
-  return isValidVideos(videos) ? videos : null;
+  return isValidVideos(videos) ? renumberVideos(videos) : null;
 }
 
 async function writeVideosToGithub(videos: Video[]) {
@@ -138,7 +145,8 @@ export async function POST(request: Request) {
     );
   }
 
-  const savedToGithub = await writeVideosToGithub(videos);
+  const orderedVideos = renumberVideos(videos);
+  const savedToGithub = await writeVideosToGithub(orderedVideos);
 
   if (!savedToGithub) {
     if (process.env.NODE_ENV === "production") {
@@ -153,7 +161,7 @@ export async function POST(request: Request) {
 
     await writeFile(
       join(process.cwd(), DATA_PATH),
-      `${JSON.stringify(videos, null, 2)}\n`
+      `${JSON.stringify(orderedVideos, null, 2)}\n`
     );
   }
 

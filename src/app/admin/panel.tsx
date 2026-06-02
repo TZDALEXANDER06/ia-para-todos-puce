@@ -30,19 +30,14 @@ function normalizeYoutubeUrl(url: string) {
 }
 
 function getNextVideoNumber(videos: Video[]) {
-  const nextNumber = videos.length >= 8 ? videos.length + 2 : videos.length + 1;
-  return String(nextNumber).padStart(2, "0");
+  return String(videos.length + 1).padStart(2, "0");
 }
 
 function renumberVideos(videos: Video[]) {
-  return videos.map((video, index) => {
-    const number = index < 8 ? index + 1 : index + 2;
-
-    return {
-      ...video,
-      number: String(number).padStart(2, "0")
-    };
-  });
+  return videos.map((video, index) => ({
+    ...video,
+    number: String(index + 1).padStart(2, "0")
+  }));
 }
 
 export default function AdminPanel({ initialVideos }: { initialVideos: Video[] }) {
