@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { podcast, team, timeline, videos } from "@/data/project";
+import { podcast, team, videos } from "@/data/project";
 
 const youtubePlaylistUrl = "https://www.youtube.com/";
 const spotifyUrl = "https://open.spotify.com/";
@@ -15,7 +15,6 @@ export default function Home() {
         <div className="navLinks">
           <a href="#videos">Videos</a>
           <a href="#podcast">Podcast</a>
-          <a href="#cronograma">Cronograma</a>
           <a href="#equipo">Equipo</a>
         </div>
       </nav>
@@ -31,7 +30,7 @@ export default function Home() {
           </p>
           <div className="heroActions" aria-label="Accesos principales">
             <a className="button primary" href="#videos">Ver contenidos</a>
-            <a className="button secondary" href="#cronograma">Ver cronograma</a>
+            <a className="button secondary" href="#equipo">Ver equipo</a>
           </div>
         </div>
         <div className="heroVisual" aria-label="Aurelio IA, embajador del proyecto">
@@ -117,21 +116,6 @@ export default function Home() {
             </li>
           ))}
         </ol>
-      </section>
-
-      <section className="section" id="cronograma">
-        <div className="sectionHeader">
-          <p className="eyebrow">Plan de trabajo</p>
-          <h2>Cronograma de 8 semanas</h2>
-        </div>
-        <div className="timeline">
-          {timeline.map(([week, activity]) => (
-            <article key={week}>
-              <strong>{week}</strong>
-              <p>{activity}</p>
-            </article>
-          ))}
-        </div>
       </section>
 
       <section className="section" id="equipo">
