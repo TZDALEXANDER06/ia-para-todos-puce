@@ -69,8 +69,9 @@ a {
 
 .headerLogo img {
   display: block;
-  height: auto;
-  width: clamp(300px, 34vw, 520px);
+  height: clamp(48px, 6vw, 68px);
+  object-fit: contain;
+  width: auto;
 }
 
 .brandMark {
@@ -646,7 +647,8 @@ h3 {
   }
 
   .headerLogo img {
-    width: min(100%, 360px);
+    height: auto;
+    width: min(100%, 320px);
   }
 
   .navLinks {
