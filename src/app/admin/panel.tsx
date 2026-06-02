@@ -1,14 +1,12 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 
 type Video = {
   number: string;
   title: string;
   topic: string;
-  audience: string;
-  status: string;
   youtubeUrl?: string;
 };
 
@@ -23,7 +21,9 @@ function normalizeYoutubeUrl(url: string) {
     const parsed = new URL(url);
     const id = parsed.hostname.includes("youtu.be")
       ? parsed.pathname.slice(1)
-      : parsed.searchParams.get("v");
+      : parsed.pathname.startsWith("/shorts/")
+        ? parsed.pathname.split("/")[2]
+        : parsed.searchParams.get("v");
 
     return id ? `https://www.youtube.com/watch?v=${id}` : url;
   } catch {
@@ -40,11 +40,7 @@ export default function AdminPanel({ initialVideos }: { initialVideos: Video[] }
     const saved = window.localStorage.getItem(STORAGE_KEY);
     return saved ? JSON.parse(saved) : initialVideos;
   });
-  const [copied, setCopied] = useState(false);
-
-  useEffect(() => {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(videos));
-  }, [videos]);
+  const [saveMessage, setSaveMessage] = useState("");
 
   const publishedCount = useMemo(
     () => videos.filter((video) => Boolean(video.youtubeUrl)).length,
@@ -62,12 +58,12 @@ export default function AdminPanel({ initialVideos }: { initialVideos: Video[] }
           : video
       )
     );
+    setSaveMessage("");
   }
 
-  async function copyJson() {
-    await navigator.clipboard.writeText(JSON.stringify(videos, null, 2));
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 1800);
+  function saveChanges() {
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(videos));
+    setSaveMessage("Cambios guardados. Vuelve al sitio para verlos en esta sesión.");
   }
 
   async function logout() {
@@ -83,15 +79,15 @@ export default function AdminPanel({ initialVideos }: { initialVideos: Video[] }
           <p className="eyebrow">Panel administrador</p>
           <h1>Gestión de videos</h1>
           <p>
-            Pega los enlaces de YouTube, actualiza estados y guarda una copia
-            exportable de la información.
+            Edita el título, la descripción y el enlace de YouTube. El botón
+            guardar actualiza lo que se ve en este navegador.
           </p>
         </div>
         <div className="adminActions">
-          <button className="button secondary" onClick={copyJson} type="button">
-            {copied ? "Copiado" : "Copiar JSON"}
+          <button className="button primary" onClick={saveChanges} type="button">
+            Guardar cambios
           </button>
-          <button className="button primary" onClick={logout} type="button">
+          <button className="button secondary" onClick={logout} type="button">
             Cerrar sesión
           </button>
         </div>
@@ -108,22 +104,13 @@ export default function AdminPanel({ initialVideos }: { initialVideos: Video[] }
         </div>
       </section>
 
+      {saveMessage ? <div className="saveMessage">{saveMessage}</div> : null}
+
       <section className="adminVideoList" aria-label="Videos del proyecto">
         {videos.map((video, index) => (
           <article className="adminVideoCard" key={video.number}>
             <div className="adminVideoTop">
               <span>Video {video.number}</span>
-              <select
-                aria-label={`Estado del video ${video.number}`}
-                onChange={(event) => updateVideo(index, "status", event.target.value)}
-                value={video.status}
-              >
-                <option>Planificado</option>
-                <option>Guion inicial</option>
-                <option>En grabación</option>
-                <option>En edición</option>
-                <option>Publicado</option>
-              </select>
             </div>
 
             <label>
@@ -131,6 +118,15 @@ export default function AdminPanel({ initialVideos }: { initialVideos: Video[] }
               <input
                 onChange={(event) => updateVideo(index, "title", event.target.value)}
                 value={video.title}
+              />
+            </label>
+
+            <label>
+              Descripción
+              <textarea
+                onChange={(event) => updateVideo(index, "topic", event.target.value)}
+                rows={4}
+                value={video.topic}
               />
             </label>
 
@@ -144,21 +140,6 @@ export default function AdminPanel({ initialVideos }: { initialVideos: Video[] }
                 value={video.youtubeUrl ?? ""}
               />
             </label>
-
-            <label>
-              Descripción breve
-              <textarea
-                onChange={(event) => updateVideo(index, "topic", event.target.value)}
-                rows={3}
-                value={video.topic}
-              />
-            </label>
-
-            {video.youtubeUrl ? (
-              <a className="textLink" href={video.youtubeUrl} target="_blank">
-                Abrir video
-              </a>
-            ) : null}
           </article>
         ))}
       </section>

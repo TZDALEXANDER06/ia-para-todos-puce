@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { podcast, team, videos } from "@/data/project";
+import VideosSection from "./videos-section";
 
 const youtubePlaylistUrl = "https://www.youtube.com/";
 const spotifyUrl = "https://open.spotify.com/";
@@ -82,19 +83,7 @@ export default function Home() {
           <h2>Ocho videos educativos</h2>
           <a className="textLink" href={youtubePlaylistUrl}>Playlist en YouTube</a>
         </div>
-        <div className="videoGrid">
-          {videos.map((video) => (
-            <article className="videoCard" key={video.number}>
-              <div className="videoNumber">{video.number}</div>
-              <div>
-                <h3>{video.title}</h3>
-                <p>{video.topic}</p>
-                <small>{video.audience}</small>
-              </div>
-              <span className="status">{video.status}</span>
-            </article>
-          ))}
-        </div>
+        <VideosSection initialVideos={videos} />
       </section>
 
       <section className="section mediaBand" id="podcast">
