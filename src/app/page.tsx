@@ -15,10 +15,10 @@ export default function Home() {
         </a>
         <div className="headerLogo" aria-label="Pontificia Universidad Católica del Ecuador">
           <Image
-            src="/images/puce-logo.svg"
+            src="/images/logo_puce.png"
             alt="Pontificia Universidad Católica del Ecuador"
-            width={720}
-            height={180}
+            width={608}
+            height={156}
             priority
           />
         </div>

@@ -70,7 +70,7 @@ a {
 .headerLogo img {
   display: block;
   height: auto;
-  width: clamp(260px, 28vw, 430px);
+  width: clamp(300px, 34vw, 520px);
 }
 
 .brandMark {
