@@ -28,25 +28,45 @@ function getYoutubeEmbedUrl(url?: string) {
       id = parsed.searchParams.get("v") ?? "";
     }
 
-    return id ? `https://www.youtube.com/embed/${id}` : "";
+    return id ? `https://www.youtube.com/embed/${id}?playsinline=1&rel=0` : "";
   } catch {
     return "";
   }
 }
 
 export default function VideosSection({ initialVideos }: { initialVideos: Video[] }) {
-  const [videos, setVideos] = useState<Video[]>(initialVideos);
+  const [videos, setVideos] = useState<Video[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function loadVideos() {
-      const response = await fetch("/api/videos", { cache: "no-store" });
-      if (response.ok) {
-        setVideos(await response.json());
+      try {
+        const response = await fetch("/api/videos", { cache: "no-store" });
+        setVideos(response.ok ? await response.json() : initialVideos);
+      } catch {
+        setVideos(initialVideos);
+      } finally {
+        setIsLoading(false);
       }
     }
 
     loadVideos();
-  }, []);
+  }, [initialVideos]);
+
+  if (isLoading) {
+    return (
+      <div className="videoGrid">
+        {initialVideos.map((video) => (
+          <article className="videoCard" key={video.number}>
+            <div className="videoNumber">{video.number}</div>
+            <h3>{video.title}</h3>
+            <p>{video.topic}</p>
+            <div className="videoPlaceholder">Cargando video...</div>
+          </article>
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div className="videoGrid">

@@ -33,16 +33,24 @@ function isValidVideos(value: unknown): value is Video[] {
 }
 
 async function readVideosFromGithub() {
+  const token = process.env.GITHUB_CONTENTS_TOKEN;
   const repository = process.env.GITHUB_REPOSITORY_FULL_NAME;
   const branch = process.env.GITHUB_BRANCH ?? "main";
 
-  if (!repository) {
+  if (!repository || !token) {
     return null;
   }
 
   const response = await fetch(
-    `https://raw.githubusercontent.com/${repository}/${branch}/${DATA_PATH}?ts=${Date.now()}`,
-    { cache: "no-store" }
+    `https://api.github.com/repos/${repository}/contents/${DATA_PATH}?ref=${branch}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: "application/vnd.github.raw+json",
+        "X-GitHub-Api-Version": "2022-11-28"
+      },
+      cache: "no-store"
+    }
   );
 
   if (!response.ok) {
@@ -105,7 +113,10 @@ async function writeVideosToGithub(videos: Video[]) {
 export async function GET() {
   const githubVideos = await readVideosFromGithub();
   return NextResponse.json(githubVideos ?? videosData, {
-    headers: { "Cache-Control": "no-store" }
+    headers: {
+      "Cache-Control": "no-store",
+      "X-Videos-Source": githubVideos ? "github" : "bundle"
+    }
   });
 }
 
