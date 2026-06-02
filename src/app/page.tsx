@@ -64,23 +64,22 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section split" id="proyecto">
+      <section className="section objective" id="proyecto">
         <div>
           <p className="eyebrow">Objetivo general</p>
-          <h2>Un ecosistema digital educativo sobre IA</h2>
         </div>
         <p>
-          El sitio funciona como hub central del proyecto: centraliza los
-          videos de YouTube, el podcast de Spotify, recursos de aprendizaje,
-          enlaces a redes sociales, evidencia de avances y la identidad visual
-          de Aurelio-IA.
+          Diseñar, producir y publicar un ecosistema digital educativo sobre
+          Inteligencia Artificial que incluya sitio web, videos, podcast y
+          redes sociales, utilizando herramientas de IA Generativa para potenciar
+          la calidad del contenido y proyectar la identidad institucional de la
+          PUCE hacia la comunidad.
         </p>
       </section>
 
       <section className="section" id="videos">
         <div className="sectionHeader">
-          <p className="eyebrow">Serie audiovisual</p>
-          <h2>Ocho videos educativos</h2>
+          <h2>Videos educativos</h2>
           <a className="textLink" href={youtubePlaylistUrl}>Playlist en YouTube</a>
         </div>
         <VideosSection initialVideos={videos} />

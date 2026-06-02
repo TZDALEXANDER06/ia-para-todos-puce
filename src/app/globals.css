@@ -211,6 +211,17 @@ h3 {
   grid-template-columns: minmax(260px, 0.72fr) minmax(300px, 1fr);
 }
 
+.objective {
+  max-width: 980px;
+}
+
+.objective > p {
+  color: var(--muted);
+  font-size: clamp(1.15rem, 2vw, 1.55rem);
+  line-height: 1.65;
+  margin-bottom: 0;
+}
+
 .split p,
 .mediaBand p {
   color: var(--muted);
