@@ -25,14 +25,6 @@
   },
   {
     "number": "04",
-    "title": "Seguridad con Videos e IA",
-    "topic": "Privacidad de imagen, consentimiento, metadatos, grabacion responsable y legislacion basica.",
-    "audience": "Usuarios de redes sociales y publico amplio.",
-    "status": "Planificado",
-    "youtubeUrl": ""
-  },
-  {
-    "number": "05",
     "title": "Deepfakes y Desinformación",
     "topic": "Que son los deepfakes, como detectarlos, verificacion, fact-checking y riesgos legales.",
     "audience": "Ciudadania digital, jovenes y adultos.",
@@ -40,7 +32,7 @@
     "youtubeUrl": ""
   },
   {
-    "number": "06",
+    "number": "05",
     "title": "El Futuro de la Inteligencia Artificial",
     "topic": "IA generativa, AGI, regulacion, impacto laboral y profesiones del futuro.",
     "audience": "Jovenes, profesionales y emprendedores.",
@@ -48,7 +40,7 @@
     "youtubeUrl": ""
   },
   {
-    "number": "07",
+    "number": "06",
     "title": "Tutorial: Herramientas IA para Estudiantes",
     "topic": "Demostraciones de ChatGPT, Gemini, Copilot, Midjourney y Canva IA.",
     "audience": "Estudiantes de cualquier carrera.",
@@ -56,7 +48,7 @@
     "youtubeUrl": ""
   },
   {
-    "number": "08",
+    "number": "07",
     "title": "Reflexión Final y Próximos Pasos",
     "topic": "Resumen del proyecto, aprendizajes, datos de alcance y mensaje a la comunidad.",
     "audience": "Comunidad PUCE y publico general.",
@@ -64,7 +56,7 @@
     "youtubeUrl": ""
   },
   {
-    "number": "09",
+    "number": "08",
     "title": "",
     "topic": "",
     "youtubeUrl": ""
