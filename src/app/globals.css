@@ -212,6 +212,8 @@ h3 {
 }
 
 .objective {
+  display: grid;
+  gap: 24px;
   max-width: 980px;
 }
 

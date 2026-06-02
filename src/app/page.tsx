@@ -65,9 +65,7 @@ export default function Home() {
       </section>
 
       <section className="section objective" id="proyecto">
-        <div>
-          <p className="eyebrow">Objetivo general</p>
-        </div>
+        <h2>Objetivo general</h2>
         <p>
           Diseñar, producir y publicar un ecosistema digital educativo sobre
           Inteligencia Artificial que incluya sitio web, videos, podcast y
