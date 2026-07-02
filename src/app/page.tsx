@@ -43,8 +43,8 @@ export default function Home() {
           <Image
             src="/images/aurelio-ia-hero.png"
             alt="Mascota tipo oso de anteojos como embajador educativo de inteligencia artificial"
-            width={1200}
-            height={900}
+            width={1086}
+            height={1448}
             priority
           />
         </div>
