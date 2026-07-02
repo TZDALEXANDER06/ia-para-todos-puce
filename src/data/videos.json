@@ -1,14 +1,6 @@
 [
   {
     "number": "01",
-    "title": "¿Qué es la Inteligencia Artificial?",
-    "topic": "\nUn video donde se explica que es la ia ",
-    "audience": "Publico general, secundaria y primer año universitario.",
-    "status": "Guion inicial",
-    "youtubeUrl": "https://www.youtube.com/watch?v=0rGSCsH_2kE"
-  },
-  {
-    "number": "02",
     "title": " Deberías estudiar en la PUCE Quito? La respuesta te sorprenderá",
     "topic": "Un video en donde te muertra si vale o no la pena estudiar en la puce",
     "audience": "Universitarios, docentes y profesionales.",
@@ -16,7 +8,7 @@
     "youtubeUrl": "https://www.youtube.com/watch?v=vEjGjsONZ6o"
   },
   {
-    "number": "03",
+    "number": "02",
     "title": "IA en la Educación",
     "topic": "Herramientas para aprender, ChatGPT en el estudio, plagio academico y honestidad intelectual.",
     "audience": "Estudiantes universitarios y docentes.",
@@ -24,7 +16,7 @@
     "youtubeUrl": ""
   },
   {
-    "number": "04",
+    "number": "03",
     "title": "Deepfakes y Desinformación",
     "topic": "Que son los deepfakes, como detectarlos, verificacion, fact-checking y riesgos legales.",
     "audience": "Ciudadania digital, jovenes y adultos.",
@@ -32,7 +24,7 @@
     "youtubeUrl": ""
   },
   {
-    "number": "05",
+    "number": "04",
     "title": "El Futuro de la Inteligencia Artificial",
     "topic": "IA generativa, AGI, regulacion, impacto laboral y profesiones del futuro.",
     "audience": "Jovenes, profesionales y emprendedores.",
@@ -40,7 +32,7 @@
     "youtubeUrl": ""
   },
   {
-    "number": "06",
+    "number": "05",
     "title": "Tutorial: Herramientas IA para Estudiantes",
     "topic": "Demostraciones de ChatGPT, Gemini, Copilot, Midjourney y Canva IA.",
     "audience": "Estudiantes de cualquier carrera.",
@@ -48,7 +40,7 @@
     "youtubeUrl": ""
   },
   {
-    "number": "07",
+    "number": "06",
     "title": "Reflexión Final y Próximos Pasos",
     "topic": "Resumen del proyecto, aprendizajes, datos de alcance y mensaje a la comunidad.",
     "audience": "Comunidad PUCE y publico general.",
@@ -56,13 +48,13 @@
     "youtubeUrl": ""
   },
   {
-    "number": "08",
+    "number": "07",
     "title": "",
     "topic": "",
     "youtubeUrl": ""
   },
   {
-    "number": "09",
+    "number": "08",
     "title": "Video de aprendizaje de ia",
     "topic": "Un video que nos habla delas bases de conocimiento sobre el uso de la Ia",
     "youtubeUrl": "https://www.youtube.com/watch?v=-idMBeCCCzs"
