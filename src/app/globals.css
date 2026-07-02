@@ -179,7 +179,10 @@ h3 {
 }
 
 .heroVisual {
+  justify-self: center;
+  max-width: 520px;
   overflow: hidden;
+  width: 100%;
 }
 
 .heroVisual img {
