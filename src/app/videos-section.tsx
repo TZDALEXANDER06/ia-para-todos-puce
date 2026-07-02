@@ -16,7 +16,7 @@ type VideosSectionProps = {
   showMoreLink?: boolean;
 };
 
-function getYoutubeEmbedUrl(url?: string) {
+function getVideoEmbedUrl(url?: string) {
   if (!url?.trim()) {
     return "";
   }
@@ -24,6 +24,12 @@ function getYoutubeEmbedUrl(url?: string) {
   try {
     const parsed = new URL(url);
     let id = "";
+
+    if (parsed.hostname.includes("drive.google.com")) {
+      const fileMatch = parsed.pathname.match(/\/file\/d\/([^/]+)/);
+      id = fileMatch?.[1] ?? parsed.searchParams.get("id") ?? "";
+      return id ? `https://drive.google.com/file/d/${id}/preview` : "";
+    }
 
     if (parsed.hostname.includes("youtu.be")) {
       id = parsed.pathname.replace("/", "");
@@ -85,7 +91,7 @@ export default function VideosSection({
     <>
       <div className="videoGrid">
         {visibleVideos.map((video) => {
-          const embedUrl = getYoutubeEmbedUrl(video.youtubeUrl);
+          const embedUrl = getVideoEmbedUrl(video.youtubeUrl);
 
           return (
             <article className="videoCard" key={video.number}>
@@ -96,7 +102,7 @@ export default function VideosSection({
               {embedUrl ? (
                 <div className="videoPlayer">
                   <iframe
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen
                     loading="lazy"
                     src={embedUrl}

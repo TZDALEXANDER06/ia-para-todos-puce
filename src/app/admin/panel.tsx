@@ -10,13 +10,18 @@ type Video = {
   youtubeUrl?: string;
 };
 
-function normalizeYoutubeUrl(url: string) {
+function normalizeVideoUrl(url: string) {
   if (!url.trim()) {
     return "";
   }
 
   try {
     const parsed = new URL(url);
+
+    if (parsed.hostname.includes("drive.google.com")) {
+      return url;
+    }
+
     const id = parsed.hostname.includes("youtu.be")
       ? parsed.pathname.slice(1)
       : parsed.pathname.startsWith("/shorts/")
@@ -92,7 +97,7 @@ export default function AdminPanel({ initialVideos }: { initialVideos: Video[] }
         currentIndex === index
           ? {
               ...video,
-              [field]: field === "youtubeUrl" ? normalizeYoutubeUrl(value) : value
+              [field]: field === "youtubeUrl" ? normalizeVideoUrl(value) : value
             }
           : video
       )
@@ -239,12 +244,12 @@ export default function AdminPanel({ initialVideos }: { initialVideos: Video[] }
             </label>
 
             <label>
-              Enlace de YouTube
+              Enlace del video
               <input
                 onChange={(event) =>
                   updateVideo(index, "youtubeUrl", event.target.value)
                 }
-                placeholder="https://www.youtube.com/watch?v=..."
+                placeholder="https://drive.google.com/file/d/..."
                 value={video.youtubeUrl ?? ""}
               />
             </label>

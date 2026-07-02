@@ -1,9 +1,6 @@
 import Image from "next/image";
-import { podcast, team, videos } from "@/data/project";
+import { team, videos } from "@/data/project";
 import VideosSection from "./videos-section";
-
-const youtubePlaylistUrl = "https://www.youtube.com/";
-const spotifyUrl = "https://open.spotify.com/";
 
 export default function Home() {
   return (
@@ -24,7 +21,6 @@ export default function Home() {
         </div>
         <div className="navLinks">
           <a href="#videos">Videos</a>
-          <a href="#podcast">Podcast</a>
           <a href="#equipo">Equipo</a>
         </div>
       </nav>
@@ -34,7 +30,7 @@ export default function Home() {
           <p className="eyebrow">PUCE Sistemas - Vinculacion 2026</p>
           <h1>IA para Todos: Educación, Ética y Tecnología</h1>
           <p className="heroLead">
-            Una plataforma educativa para organizar videos, podcast, recursos y
+            Una plataforma educativa para organizar videos, recursos y
             evidencias del proyecto de vinculacion sobre inteligencia artificial
             para la comunidad.
           </p>
@@ -60,10 +56,6 @@ export default function Home() {
           <span>videos educativos</span>
         </div>
         <div>
-          <strong>6</strong>
-          <span>episodios de podcast</span>
-        </div>
-        <div>
           <strong>40+</strong>
           <span>publicaciones en redes</span>
         </div>
@@ -77,9 +69,9 @@ export default function Home() {
         <h2>Objetivo general</h2>
         <p>
           Diseñar, producir y publicar un ecosistema digital educativo sobre
-          Inteligencia Artificial que incluya sitio web, videos, podcast y
-          redes sociales, utilizando herramientas de IA Generativa para potenciar
-          la calidad del contenido y proyectar la identidad institucional de la
+          Inteligencia Artificial que incluya sitio web, videos y redes
+          sociales, utilizando herramientas de IA Generativa para potenciar la
+          calidad del contenido y proyectar la identidad institucional de la
           PUCE hacia la comunidad.
         </p>
       </section>
@@ -87,30 +79,8 @@ export default function Home() {
       <section className="section" id="videos">
         <div className="sectionHeader">
           <h2>Videos educativos</h2>
-          <a className="textLink" href={youtubePlaylistUrl}>Playlist en YouTube</a>
         </div>
         <VideosSection initialVideos={videos} showMoreLink />
-      </section>
-
-      <section className="section mediaBand" id="podcast">
-        <div>
-          <p className="eyebrow">Podcast semanal</p>
-          <h2>Aurelio Habla de IA</h2>
-          <p>
-            Seis episodios publicados entre la semana 2 y la semana 7, con
-            introduccion, desarrollo, recomendacion de la semana, timestamps y
-            notas completas para Spotify.
-          </p>
-          <a className="button secondary" href={spotifyUrl}>Abrir en Spotify</a>
-        </div>
-        <ol className="podcastList">
-          {podcast.map((episode, index) => (
-            <li key={episode}>
-              <span>EP{String(index + 1).padStart(2, "0")}</span>
-              {episode}
-            </li>
-          ))}
-        </ol>
       </section>
 
       <section className="section" id="equipo">

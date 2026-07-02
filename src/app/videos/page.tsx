@@ -26,7 +26,6 @@ export default function VideosPage() {
         </div>
         <div className="navLinks">
           <Link href="/">Inicio</Link>
-          <Link href="/#podcast">Podcast</Link>
           <Link href="/#equipo">Equipo</Link>
         </div>
       </nav>
