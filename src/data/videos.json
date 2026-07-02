@@ -1,62 +1,62 @@
 [
   {
     "number": "01",
-    "title": " Deberías estudiar en la PUCE Quito? La respuesta te sorprenderá",
-    "topic": "Un video en donde te muertra si vale o no la pena estudiar en la puce",
+    "title": "Uso de la Ia",
+    "topic": "Video en donde se muetgra sobre el uso de la IA",
     "audience": "Universitarios, docentes y profesionales.",
     "status": "Planificado",
-    "youtubeUrl": "https://www.youtube.com/watch?v=vEjGjsONZ6o"
+    "youtubeUrl": "https://drive.google.com/file/d/1P3Jew2IzPeozeRvU3ZfJdbmFJvc4UY60/view?usp=drive_link"
   },
   {
     "number": "02",
     "title": "IA en la Educación",
-    "topic": "Herramientas para aprender, ChatGPT en el estudio, plagio academico y honestidad intelectual.",
+    "topic": "Usa de manera correcta la Ia para la educación",
     "audience": "Estudiantes universitarios y docentes.",
     "status": "Planificado",
-    "youtubeUrl": ""
+    "youtubeUrl": "https://drive.google.com/file/d/1oy7cyAVpWphYP0Y0x5kKpGGsq3Aysn3c/view?usp=drive_link"
   },
   {
     "number": "03",
-    "title": "Deepfakes y Desinformación",
-    "topic": "Que son los deepfakes, como detectarlos, verificacion, fact-checking y riesgos legales.",
+    "title": "El criterio lo poner tu ",
+    "topic": "Se habla sobre no depender solo de la ia sino que siempre tienes que poner tu criterio",
     "audience": "Ciudadania digital, jovenes y adultos.",
     "status": "Planificado",
-    "youtubeUrl": ""
+    "youtubeUrl": "https://drive.google.com/file/d/1fhN8WhDQY2sVcDLV2WDglPM2msZo4N37/view?usp=drive_link"
   },
   {
     "number": "04",
-    "title": "El Futuro de la Inteligencia Artificial",
-    "topic": "IA generativa, AGI, regulacion, impacto laboral y profesiones del futuro.",
+    "title": "No le tengas miedo a la Ia",
+    "topic": "La ia no viene a quitarnos trabajo sino a apoyarnos",
     "audience": "Jovenes, profesionales y emprendedores.",
     "status": "Planificado",
-    "youtubeUrl": ""
+    "youtubeUrl": "https://drive.google.com/file/d/1Q2XWP4GjvcOn_bqwcuCf6rACcUmyfws4/view?usp=sharing"
   },
   {
     "number": "05",
-    "title": "Tutorial: Herramientas IA para Estudiantes",
-    "topic": "Demostraciones de ChatGPT, Gemini, Copilot, Midjourney y Canva IA.",
+    "title": "Uso de la Ia con ética",
+    "topic": "La importancia de saber usar la ia con ética",
     "audience": "Estudiantes de cualquier carrera.",
     "status": "Planificado",
-    "youtubeUrl": ""
+    "youtubeUrl": "https://drive.google.com/file/d/1c4oqj6q4-XzLZGVnhXPQGR1o44nbxGC0/view?usp=sharing"
   },
   {
     "number": "06",
-    "title": "Reflexión Final y Próximos Pasos",
-    "topic": "Resumen del proyecto, aprendizajes, datos de alcance y mensaje a la comunidad.",
+    "title": "A done va la información de la Ia ?",
+    "topic": "Conoce a donde va tu información ",
     "audience": "Comunidad PUCE y publico general.",
     "status": "Planificado",
-    "youtubeUrl": ""
+    "youtubeUrl": "https://drive.google.com/file/d/1jQDg360x5gUQwlwbShN-uuSlNz4qS2Yx/view?usp=sharing"
   },
   {
     "number": "07",
-    "title": "",
-    "topic": "",
-    "youtubeUrl": ""
+    "title": "La ia como un miembro de tu equipo",
+    "topic": "Conoce como la ia se ha convertido en un compañero",
+    "youtubeUrl": "https://drive.google.com/file/d/1zASCIE4r9-8ahaV9L1JzCoNAh0ISNlPP/view?usp=sharing"
   },
   {
     "number": "08",
-    "title": "Video de aprendizaje de ia",
-    "topic": "Un video que nos habla delas bases de conocimiento sobre el uso de la Ia",
-    "youtubeUrl": "https://www.youtube.com/watch?v=-idMBeCCCzs"
+    "title": "Análisis de datos con ia",
+    "topic": "Aprende a dominar la ia para el análisis de datos ",
+    "youtubeUrl": "https://drive.google.com/file/d/18P-hmFZyElDHtJPdUMIibawHOOf74Kpa/view?usp=sharing"
   }
 ]
