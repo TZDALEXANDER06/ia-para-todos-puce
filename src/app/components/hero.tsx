@@ -28,12 +28,6 @@ export default function Hero() {
       }))
     );
 
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) {
-      setTyped(BUBBLE_TEXT);
-      return;
-    }
-
     let index = 0;
     let timeout: ReturnType<typeof setTimeout>;
     const startDelay = setTimeout(function type() {

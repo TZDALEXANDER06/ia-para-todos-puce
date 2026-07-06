@@ -2233,7 +2233,7 @@ img {
     margin: 0 auto;
     max-width: 420px;
     order: -1;
-    padding-top: 78px;
+    padding-top: 96px;
   }
 
   .speechBubble {
@@ -2241,9 +2241,9 @@ img {
     right: 0;
     top: 0;
     margin: 0 auto;
-    max-width: 280px;
+    max-width: none;
     text-align: center;
-    width: max-content;
+    width: min(290px, calc(100% - 16px));
   }
 
   .speechBubble::before {
@@ -2366,22 +2366,9 @@ img {
 
   .speechBubble {
     font-size: 0.82rem;
-    max-width: 230px;
     padding: 12px 15px;
   }
 }
 
-/* ---------- Reduced motion ---------- */
-/* Mantenemos vivas las animaciones de la mascota y del héroe (son parte del
-   diseño), pero bajo prefers-reduced-motion desactivamos el movimiento de
-   fondo más intenso (aurora y partículas) para quienes son sensibles. */
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  .auroraField span,
-  .heroParticles span {
-    animation: none !important;
-  }
-}
+/* Nota: las animaciones se mantienen activas para todos los usuarios (es parte
+   del diseño solicitado), por lo que no se suprimen con prefers-reduced-motion. */
