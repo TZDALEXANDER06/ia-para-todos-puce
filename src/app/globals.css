@@ -2233,10 +2233,27 @@ img {
     margin: 0 auto;
     max-width: 420px;
     order: -1;
+    padding-top: 78px;
   }
 
   .speechBubble {
-    top: 3%;
+    left: 0;
+    right: 0;
+    top: 0;
+    margin: 0 auto;
+    max-width: 280px;
+    text-align: center;
+    width: max-content;
+  }
+
+  .speechBubble::before {
+    left: 50%;
+    margin-left: -12px;
+  }
+
+  .speechBubble::after {
+    left: 50%;
+    margin-left: -9px;
   }
 
   .scrollCue {
@@ -2349,33 +2366,22 @@ img {
 
   .speechBubble {
     font-size: 0.82rem;
-    max-width: 180px;
+    max-width: 230px;
     padding: 12px 15px;
-    right: 0;
   }
 }
 
 /* ---------- Reduced motion ---------- */
+/* Mantenemos vivas las animaciones de la mascota y del héroe (son parte del
+   diseño), pero bajo prefers-reduced-motion desactivamos el movimiento de
+   fondo más intenso (aurora y partículas) para quienes son sensibles. */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
 
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-  }
-
-  .reveal,
-  .heroTitle .line,
-  .heroLead,
-  .heroActions,
-  .heroTrust,
-  .speechBubble {
-    opacity: 1 !important;
-    transform: none !important;
+  .auroraField span,
+  .heroParticles span {
+    animation: none !important;
   }
 }
