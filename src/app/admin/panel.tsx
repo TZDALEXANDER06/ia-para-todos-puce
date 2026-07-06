@@ -2,6 +2,12 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import {
+  getVideoEmbedUrl,
+  getVideoProvider,
+  getVideoThumbnail,
+  normalizeVideoUrl
+} from "../lib/video";
 
 type Video = {
   number: string;
@@ -10,29 +16,11 @@ type Video = {
   youtubeUrl?: string;
 };
 
-function normalizeVideoUrl(url: string) {
-  if (!url.trim()) {
-    return "";
-  }
-
-  try {
-    const parsed = new URL(url);
-
-    if (parsed.hostname.includes("drive.google.com")) {
-      return url;
-    }
-
-    const id = parsed.hostname.includes("youtu.be")
-      ? parsed.pathname.slice(1)
-      : parsed.pathname.startsWith("/shorts/")
-        ? parsed.pathname.split("/")[2]
-        : parsed.searchParams.get("v");
-
-    return id ? `https://www.youtube.com/watch?v=${id}` : url;
-  } catch {
-    return url;
-  }
-}
+const providerLabels: Record<string, string> = {
+  youtube: "YouTube",
+  drive: "Google Drive",
+  none: "Sin enlace"
+};
 
 function getNextVideoNumber(videos: Video[]) {
   return String(videos.length + 1).padStart(2, "0");
@@ -51,6 +39,7 @@ export default function AdminPanel({ initialVideos }: { initialVideos: Video[] }
   const [isSaving, setIsSaving] = useState(false);
   const [justAdded, setJustAdded] = useState(false);
   const [saveMessage, setSaveMessage] = useState("");
+  const [previewIndex, setPreviewIndex] = useState<number | null>(null);
 
   useEffect(() => {
     async function loadVideos() {
@@ -135,6 +124,7 @@ export default function AdminPanel({ initialVideos }: { initialVideos: Video[] }
       videos.filter((_, currentIndex) => currentIndex !== index)
     );
 
+    setPreviewIndex(null);
     setVideos(nextVideos);
 
     const saved = await persistVideos(
@@ -161,101 +151,245 @@ export default function AdminPanel({ initialVideos }: { initialVideos: Video[] }
 
   return (
     <main className="adminDashboard">
-      <header className="adminHeader">
-        <div>
-          <Link className="adminBackLink" href="/">Volver al sitio</Link>
-          <p className="eyebrow">Panel administrador</p>
-          <h1>Gestión de videos</h1>
-          <p>
-            Edita el título, la descripción y el enlace de YouTube. También
-            puedes agregar nuevas tarjetas para publicar más videos.
-          </p>
-        </div>
-        <div className="adminActions">
-          <button
-            className={`button secondary addVideoButton ${justAdded ? "added" : ""}`}
-            disabled={isSaving}
-            onClick={addVideo}
-            type="button"
-          >
-            {justAdded ? "Video agregado" : "Agregar video"}
-          </button>
-          <button
-            className="button primary"
-            disabled={isSaving}
-            onClick={saveChanges}
-            type="button"
-          >
-            {isSaving ? "Guardando..." : "Guardar cambios"}
-          </button>
-          <button className="button secondary" onClick={logout} type="button">
+      <div className="adminTopbar">
+        <Link className="adminBrand" href="/">
+          <span className="brandMark" aria-hidden="true">
+            IA
+          </span>
+          <span>
+            IA para Todos
+            <small>Panel de administración</small>
+          </span>
+        </Link>
+        <div className="adminTopActions">
+          <Link className="adminGhostLink" href="/" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M14 4h6v6M20 4l-9 9M18 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            Ver sitio
+          </Link>
+          <button className="adminGhostLink" onClick={logout} type="button">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M15 12H4m0 0 4-4m-4 4 4 4M16 4h3a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
             Cerrar sesión
           </button>
         </div>
-      </header>
+      </div>
 
-      <section className="adminStats" aria-label="Resumen de publicaciones">
-        <div>
-          <strong>{publishedCount}</strong>
-          <span>videos con enlace</span>
-        </div>
-        <div>
-          <strong>{videos.length - publishedCount}</strong>
-          <span>videos pendientes</span>
-        </div>
-      </section>
+      <div className="adminContent">
+        <header className="adminHeader">
+          <div>
+            <span className="authBadge">Gestión de contenidos</span>
+            <h1>Videos del proyecto</h1>
+            <p>
+              Edita el título, la descripción y el enlace de YouTube o Google
+              Drive. Los cambios se guardan y se publican en el sitio.
+            </p>
+          </div>
+          <div className="adminActions">
+            <button
+              className={`button secondary addVideoButton ${justAdded ? "added" : ""}`}
+              disabled={isSaving}
+              onClick={addVideo}
+              type="button"
+            >
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" width="18" height="18">
+                <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+              </svg>
+              {justAdded ? "Video agregado" : "Agregar video"}
+            </button>
+            <button
+              className="button primary"
+              disabled={isSaving}
+              onClick={saveChanges}
+              type="button"
+            >
+              {isSaving ? "Guardando..." : "Guardar cambios"}
+            </button>
+          </div>
+        </header>
 
-      {saveMessage ? <div className="saveMessage">{saveMessage}</div> : null}
+        <section className="adminStats" aria-label="Resumen de publicaciones">
+          <div className="adminStat">
+            <span className="adminStatIcon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <rect x="3" y="4" width="18" height="16" rx="3" stroke="currentColor" strokeWidth="2" />
+                <path d="m10 8 6 4-6 4V8Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+              </svg>
+            </span>
+            <strong>{videos.length}</strong>
+            <span>videos en total</span>
+          </div>
+          <div className="adminStat">
+            <span className="adminStatIcon is-green" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
+                <path d="m8 12 3 3 5-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
+            <strong>{publishedCount}</strong>
+            <span>con enlace publicado</span>
+          </div>
+          <div className="adminStat">
+            <span className="adminStatIcon is-amber" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
+                <path d="M12 7v5l3 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
+            <strong>{videos.length - publishedCount}</strong>
+            <span>pendientes de enlace</span>
+          </div>
+        </section>
 
-      {isLoading ? <div className="saveMessage">Cargando videos...</div> : null}
+        {saveMessage ? (
+          <div className="saveMessage" role="status">
+            {saveMessage}
+          </div>
+        ) : null}
 
-      <section className="adminVideoList" aria-label="Videos del proyecto">
-        {videos.map((video, index) => (
-          <article className="adminVideoCard" key={video.number}>
-            <div className="adminVideoTop">
-              <span>Video {video.number}</span>
-              <button
-                className="deleteVideoButton"
-                disabled={isSaving}
-                onClick={() => deleteVideo(index)}
-                type="button"
-              >
-                Borrar
-              </button>
-            </div>
+        {isLoading ? (
+          <div className="adminLoading">Cargando videos...</div>
+        ) : null}
 
-            <label>
-              Título
-              <input
-                onChange={(event) => updateVideo(index, "title", event.target.value)}
-                placeholder="Título del video"
-                value={video.title}
-              />
-            </label>
+        <section className="adminVideoList" aria-label="Videos del proyecto">
+          {videos.map((video, index) => {
+            const provider = getVideoProvider(video.youtubeUrl);
+            const embedUrl = getVideoEmbedUrl(video.youtubeUrl);
+            const thumbnail = getVideoThumbnail(video.youtubeUrl);
+            const hasLink = Boolean(video.youtubeUrl?.trim());
+            const invalidLink = hasLink && !embedUrl;
+            const isPreviewing = previewIndex === index;
 
-            <label>
-              Descripción
-              <textarea
-                onChange={(event) => updateVideo(index, "topic", event.target.value)}
-                placeholder="Descripción breve del video"
-                rows={4}
-                value={video.topic}
-              />
-            </label>
+            return (
+              <article className="avCard" key={`${video.number}-${index}`}>
+                <div className="avMedia">
+                  {isPreviewing && embedUrl ? (
+                    <div className="avPlayer">
+                      <iframe
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowFullScreen
+                        src={embedUrl}
+                        title={video.title || `Video ${video.number}`}
+                      />
+                      <button
+                        className="avClose"
+                        onClick={() => setPreviewIndex(null)}
+                        type="button"
+                      >
+                        Cerrar
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="avThumb">
+                      <span className="avThumbFallback" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none">
+                          <rect x="3" y="4" width="18" height="16" rx="3" stroke="currentColor" strokeWidth="1.6" />
+                          <path d="m10 8 6 4-6 4V8Z" fill="currentColor" />
+                        </svg>
+                      </span>
+                      {thumbnail ? (
+                        <img
+                          key={thumbnail}
+                          src={thumbnail}
+                          alt=""
+                          loading="lazy"
+                          onError={(event) => {
+                            event.currentTarget.style.visibility = "hidden";
+                          }}
+                        />
+                      ) : null}
+                      {embedUrl ? (
+                        <button
+                          className="avPlay"
+                          onClick={() => setPreviewIndex(index)}
+                          type="button"
+                          aria-label="Reproducir video de prueba"
+                        >
+                          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="M8 5v14l11-7-11-7Z" fill="currentColor" />
+                          </svg>
+                        </button>
+                      ) : null}
+                      <span className="avNum">{video.number}</span>
+                      <span className={`avProvider is-${provider}`}>
+                        {providerLabels[provider]}
+                      </span>
+                    </div>
+                  )}
+                </div>
 
-            <label>
-              Enlace del video
-              <input
-                onChange={(event) =>
-                  updateVideo(index, "youtubeUrl", event.target.value)
-                }
-                placeholder="https://drive.google.com/file/d/..."
-                value={video.youtubeUrl ?? ""}
-              />
-            </label>
-          </article>
-        ))}
-      </section>
+                <div className="avBody">
+                  <div className="avBodyTop">
+                    <span
+                      className={`avStatus ${hasLink ? "is-published" : "is-pending"}`}
+                    >
+                      <span className="dot" aria-hidden="true" />
+                      {hasLink ? "Publicado" : "Pendiente"}
+                    </span>
+                    <button
+                      className="deleteVideoButton"
+                      disabled={isSaving}
+                      onClick={() => deleteVideo(index)}
+                      type="button"
+                    >
+                      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" width="16" height="16">
+                        <path d="M4 7h16M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2m-8 0 1 12a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1l1-12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                      Eliminar
+                    </button>
+                  </div>
+
+                  <label>
+                    <span>Título</span>
+                    <input
+                      onChange={(event) => updateVideo(index, "title", event.target.value)}
+                      placeholder="Título del video"
+                      value={video.title}
+                    />
+                  </label>
+
+                  <label>
+                    <span>Descripción</span>
+                    <textarea
+                      onChange={(event) => updateVideo(index, "topic", event.target.value)}
+                      placeholder="Descripción breve del video"
+                      rows={3}
+                      value={video.topic}
+                    />
+                  </label>
+
+                  <label>
+                    <span>Enlace del video (YouTube o Drive)</span>
+                    <input
+                      onChange={(event) =>
+                        updateVideo(index, "youtubeUrl", event.target.value)
+                      }
+                      placeholder="https://youtu.be/... o https://drive.google.com/file/d/..."
+                      value={video.youtubeUrl ?? ""}
+                    />
+                  </label>
+
+                  {invalidLink ? (
+                    <p className="avHint is-warning">
+                      Enlace no reconocido. Usa un enlace de YouTube o de Google
+                      Drive.
+                    </p>
+                  ) : hasLink ? (
+                    <p className="avHint is-ok">
+                      Enlace de {providerLabels[provider]} válido. Pulsa la
+                      miniatura para probarlo.
+                    </p>
+                  ) : (
+                    <p className="avHint">Sin enlace: el video aparece como pendiente.</p>
+                  )}
+                </div>
+              </article>
+            );
+          })}
+        </section>
+      </div>
     </main>
   );
 }

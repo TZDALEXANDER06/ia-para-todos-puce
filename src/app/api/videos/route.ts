@@ -14,7 +14,7 @@ type Video = {
 const DATA_PATH = "src/data/videos.json";
 const SESSION_COOKIE = "ia_admin_session";
 
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
 
 function isValidVideos(value: unknown): value is Video[] {
   return (

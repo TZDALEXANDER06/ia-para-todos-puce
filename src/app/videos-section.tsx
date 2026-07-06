@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { getVideoEmbedUrl } from "./lib/video";
 
 type Video = {
   number: string;
@@ -15,37 +16,6 @@ type VideosSectionProps = {
   showAll?: boolean;
   showMoreLink?: boolean;
 };
-
-function getVideoEmbedUrl(url?: string) {
-  if (!url?.trim()) {
-    return "";
-  }
-
-  try {
-    const parsed = new URL(url);
-    let id = "";
-
-    if (parsed.hostname.includes("drive.google.com")) {
-      const fileMatch = parsed.pathname.match(/\/file\/d\/([^/]+)/);
-      id = fileMatch?.[1] ?? parsed.searchParams.get("id") ?? "";
-      return id ? `https://drive.google.com/file/d/${id}/preview` : "";
-    }
-
-    if (parsed.hostname.includes("youtu.be")) {
-      id = parsed.pathname.replace("/", "");
-    } else if (parsed.pathname.startsWith("/shorts/")) {
-      id = parsed.pathname.split("/")[2] ?? "";
-    } else if (parsed.pathname.startsWith("/embed/")) {
-      id = parsed.pathname.split("/")[2] ?? "";
-    } else {
-      id = parsed.searchParams.get("v") ?? "";
-    }
-
-    return id ? `https://www.youtube.com/embed/${id}?playsinline=1&rel=0` : "";
-  } catch {
-    return "";
-  }
-}
 
 export default function VideosSection({
   initialVideos,

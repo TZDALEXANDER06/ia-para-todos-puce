@@ -1,48 +1,48 @@
-import Image from "next/image";
-import Link from "next/link";
 import { videos } from "@/data/project";
 import VideosSection from "../videos-section";
+import SiteHeader from "../components/site-header";
+import SiteFooter from "../components/site-footer";
+import Reveal from "../components/reveal";
 
 export const metadata = {
   title: "Videos educativos"
 };
 
+const videoLinks = [
+  { href: "/", label: "Inicio" },
+  { href: "/#proyecto", label: "Proyecto" },
+  { href: "/#podcast", label: "Podcast" },
+  { href: "/#equipo", label: "Equipo" }
+];
+
 export default function VideosPage() {
   return (
     <main>
-      <nav className="topbar" aria-label="Navegacion principal">
-        <Link className="brand" href="/" aria-label="Volver al inicio">
-          <span className="brandMark" aria-hidden="true">IA</span>
-          <span>IA para Todos</span>
-        </Link>
-        <div className="headerLogo" aria-label="Pontificia Universidad Católica del Ecuador">
-          <Image
-            src="/images/logo_puce.png"
-            alt="Pontificia Universidad Católica del Ecuador"
-            width={608}
-            height={156}
-            priority
-          />
-        </div>
-        <div className="navLinks">
-          <Link href="/">Inicio</Link>
-          <Link href="/#equipo">Equipo</Link>
-        </div>
-      </nav>
+      <SiteHeader brandHref="/" links={videoLinks} />
 
       <section className="section videosPageHero">
-        <p className="eyebrow">Biblioteca audiovisual</p>
-        <h1>Videos educativos</h1>
-        <p>
-          Explora todos los videos publicados del proyecto IA para Todos,
-          incluyendo la serie inicial y los nuevos contenidos agregados por el
-          equipo.
-        </p>
+        <div className="container">
+          <Reveal>
+            <p className="eyebrow">Biblioteca audiovisual</p>
+            <h1>Videos educativos</h1>
+            <p>
+              Explora todos los videos publicados del proyecto IA para Todos,
+              incluyendo la serie inicial y los nuevos contenidos agregados por
+              el equipo.
+            </p>
+          </Reveal>
+        </div>
       </section>
 
       <section className="section videosPageList">
-        <VideosSection initialVideos={videos} showAll />
+        <div className="container">
+          <Reveal>
+            <VideosSection initialVideos={videos} showAll />
+          </Reveal>
+        </div>
       </section>
+
+      <SiteFooter />
     </main>
   );
 }
