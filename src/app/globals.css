@@ -744,7 +744,7 @@ img {
 .metrics {
   display: grid;
   gap: 20px;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   margin-bottom: clamp(20px, 4vw, 40px);
 }
 
@@ -805,6 +805,98 @@ img {
   font-weight: 500;
   margin-top: 8px;
   position: relative;
+}
+
+/* Tarjeta de Instagram (reemplaza una métrica, enlaza al perfil) */
+.igCard {
+  background: linear-gradient(135deg, #feda75 0%, #fa7e1e 22%, #d62976 52%, #962fbf 78%, #4f5bd5 100%);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow: hidden;
+  padding: 26px 28px 24px;
+  position: relative;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.igCard::before {
+  background: radial-gradient(circle at 82% 4%, rgba(255, 255, 255, 0.35), transparent 58%);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.igCard:hover {
+  box-shadow: 0 30px 60px -22px rgba(214, 41, 118, 0.6);
+  transform: translateY(-6px);
+}
+
+.igTop {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.igIcon {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 14px;
+  display: inline-flex;
+  height: 48px;
+  justify-content: center;
+  width: 48px;
+}
+
+.igIcon svg {
+  height: 26px;
+  stroke: white;
+  width: 26px;
+}
+
+.igFollow {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 999px;
+  color: #c1306a;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 800;
+  padding: 6px 14px;
+}
+
+.igHandle {
+  color: white;
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-top: auto;
+  overflow-wrap: anywhere;
+  position: relative;
+}
+
+.igLabel {
+  align-items: center;
+  color: rgba(255, 255, 255, 0.92);
+  display: flex;
+  font-weight: 600;
+  gap: 6px;
+  position: relative;
+}
+
+.igLabel svg {
+  height: 18px;
+  transition: transform 0.25s ease;
+  width: 18px;
+}
+
+.igCard:hover .igLabel svg {
+  transform: translateX(4px);
 }
 
 /* ---------- Secciones ---------- */
@@ -2264,6 +2356,10 @@ img {
 @media (max-width: 1080px) {
   .metrics {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .igCard {
+    grid-column: 1 / -1;
   }
 
   .podcastGrid {
