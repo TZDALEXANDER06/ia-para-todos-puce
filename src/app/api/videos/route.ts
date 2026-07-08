@@ -1,8 +1,8 @@
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import videosData from "@/data/videos.json";
+import { isAuthorized } from "@/app/lib/admin-auth";
 
 type Video = {
   number: string;
@@ -12,7 +12,6 @@ type Video = {
 };
 
 const DATA_PATH = "src/data/videos.json";
-const SESSION_COOKIE = "ia_admin_session";
 
 export const dynamic = "force-static";
 
@@ -128,11 +127,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const sessionToken = process.env.ADMIN_SESSION_TOKEN;
-  const cookieStore = await cookies();
-  const session = cookieStore.get(SESSION_COOKIE)?.value;
-
-  if (!sessionToken || session !== sessionToken) {
+  if (!isAuthorized(request)) {
     return NextResponse.json({ message: "No autorizado." }, { status: 401 });
   }
 
