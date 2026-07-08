@@ -1,44 +1,44 @@
 import { NextResponse } from "next/server";
 import { writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import videosData from "@/data/videos.json";
+import podcastsData from "@/data/podcasts.json";
 import { isAuthorized } from "@/app/lib/admin-auth";
 
-type Video = {
+type Podcast = {
   number: string;
   title: string;
-  topic: string;
-  youtubeUrl?: string;
+  description: string;
+  spotifyUrl?: string;
 };
 
-const DATA_PATH = "src/data/videos.json";
+const DATA_PATH = "src/data/podcasts.json";
 
 export const dynamic = "force-dynamic";
 
-function isValidVideos(value: unknown): value is Video[] {
+function isValidPodcasts(value: unknown): value is Podcast[] {
   return (
     Array.isArray(value) &&
     value.every(
-      (video) =>
-        typeof video === "object" &&
-        video !== null &&
-        typeof (video as Video).number === "string" &&
-        typeof (video as Video).title === "string" &&
-        typeof (video as Video).topic === "string" &&
-        ((video as Video).youtubeUrl === undefined ||
-          typeof (video as Video).youtubeUrl === "string")
+      (item) =>
+        typeof item === "object" &&
+        item !== null &&
+        typeof (item as Podcast).number === "string" &&
+        typeof (item as Podcast).title === "string" &&
+        typeof (item as Podcast).description === "string" &&
+        ((item as Podcast).spotifyUrl === undefined ||
+          typeof (item as Podcast).spotifyUrl === "string")
     )
   );
 }
 
-function renumberVideos(videos: Video[]) {
-  return videos.map((video, index) => ({
-    ...video,
+function renumberPodcasts(podcasts: Podcast[]) {
+  return podcasts.map((podcast, index) => ({
+    ...podcast,
     number: String(index + 1).padStart(2, "0")
   }));
 }
 
-async function readVideosFromGithub() {
+async function readPodcastsFromGithub() {
   const token = process.env.GITHUB_CONTENTS_TOKEN;
   const repository = process.env.GITHUB_REPOSITORY_FULL_NAME;
   const branch = process.env.GITHUB_BRANCH ?? "main";
@@ -63,11 +63,11 @@ async function readVideosFromGithub() {
     return null;
   }
 
-  const videos = await response.json();
-  return isValidVideos(videos) ? renumberVideos(videos) : null;
+  const podcasts = await response.json();
+  return isValidPodcasts(podcasts) ? renumberPodcasts(podcasts) : null;
 }
 
-async function writeVideosToGithub(videos: Video[]) {
+async function writePodcastsToGithub(podcasts: Podcast[]) {
   const token = process.env.GITHUB_CONTENTS_TOKEN;
   const repository = process.env.GITHUB_REPOSITORY_FULL_NAME;
   const branch = process.env.GITHUB_BRANCH ?? "main";
@@ -87,11 +87,11 @@ async function writeVideosToGithub(videos: Video[]) {
   });
 
   if (!currentFile.ok) {
-    throw new Error("No se pudo leer el archivo de videos desde GitHub.");
+    throw new Error("No se pudo leer el archivo de podcasts desde GitHub.");
   }
 
   const current = await currentFile.json();
-  const content = `${JSON.stringify(videos, null, 2)}\n`;
+  const content = `${JSON.stringify(podcasts, null, 2)}\n`;
 
   const update = await fetch(apiUrl, {
     method: "PUT",
@@ -104,24 +104,24 @@ async function writeVideosToGithub(videos: Video[]) {
     body: JSON.stringify({
       branch,
       content: Buffer.from(content, "utf8").toString("base64"),
-      message: "Update videos from admin panel",
+      message: "Update podcasts from admin panel",
       sha: current.sha
     })
   });
 
   if (!update.ok) {
-    throw new Error("No se pudo guardar el archivo de videos en GitHub.");
+    throw new Error("No se pudo guardar el archivo de podcasts en GitHub.");
   }
 
   return true;
 }
 
 export async function GET() {
-  const githubVideos = await readVideosFromGithub();
-  return NextResponse.json(githubVideos ?? videosData, {
+  const githubPodcasts = await readPodcastsFromGithub();
+  return NextResponse.json(githubPodcasts ?? podcastsData, {
     headers: {
       "Cache-Control": "no-store",
-      "X-Videos-Source": githubVideos ? "github" : "bundle"
+      "X-Podcasts-Source": githubPodcasts ? "github" : "bundle"
     }
   });
 }
@@ -131,17 +131,17 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: "No autorizado." }, { status: 401 });
   }
 
-  const videos = await request.json();
+  const podcasts = await request.json();
 
-  if (!isValidVideos(videos)) {
+  if (!isValidPodcasts(podcasts)) {
     return NextResponse.json(
-      { message: "Formato de videos invalido." },
+      { message: "Formato de podcasts invalido." },
       { status: 400 }
     );
   }
 
-  const orderedVideos = renumberVideos(videos);
-  const savedToGithub = await writeVideosToGithub(orderedVideos);
+  const orderedPodcasts = renumberPodcasts(podcasts);
+  const savedToGithub = await writePodcastsToGithub(orderedPodcasts);
 
   if (!savedToGithub) {
     if (process.env.NODE_ENV === "production") {
@@ -156,7 +156,7 @@ export async function POST(request: Request) {
 
     await writeFile(
       join(process.cwd(), DATA_PATH),
-      `${JSON.stringify(orderedVideos, null, 2)}\n`
+      `${JSON.stringify(orderedPodcasts, null, 2)}\n`
     );
   }
 

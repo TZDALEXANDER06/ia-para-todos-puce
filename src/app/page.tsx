@@ -1,5 +1,6 @@
-import { team, videos, podcast } from "@/data/project";
+import { team, videos, podcasts } from "@/data/project";
 import VideosSection from "./videos-section";
+import PodcastsSection from "./podcasts-section";
 import SiteHeader from "./components/site-header";
 import SiteFooter from "./components/site-footer";
 import Hero from "./components/hero";
@@ -18,7 +19,7 @@ const homeLinks = [
 const publishedVideos = videos.filter((video) =>
   Boolean(video.youtubeUrl && video.youtubeUrl.trim())
 ).length;
-const publishedPodcasts = podcast.length;
+const publishedPodcasts = podcasts.length;
 
 export default function Home() {
   return (
@@ -118,39 +119,13 @@ export default function Home() {
             <p className="eyebrow">Serie de audio</p>
             <h2>Podcast</h2>
             <p>
-              Conversaciones para escuchar sobre IA, ética y vida estudiantil.
-              {" "}
-              {publishedPodcasts} episodios publicados.
+              Escucha nuestras conversaciones sobre IA, ética y vida estudiantil
+              directamente desde Spotify.
             </p>
           </Reveal>
-          <div className="podcastGrid">
-            {podcast.map((title, index) => (
-              <Reveal key={title} delay={index * 70}>
-                <article className="podcastCard">
-                  <div className="podcastTop">
-                    <span className="podcastNumber">
-                      EP {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <span className="podcastIcon" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" fill="none">
-                        <rect x="9" y="2" width="6" height="12" rx="3" stroke="currentColor" strokeWidth="2" />
-                        <path d="M5 11a7 7 0 0 0 14 0M12 18v4M8 22h8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </span>
-                  </div>
-                  <h3>{title}</h3>
-                  <p className="podcastMeta">
-                    <span className="wave" aria-hidden="true">
-                      <span />
-                      <span />
-                      <span />
-                    </span>
-                    Episodio de podcast
-                  </p>
-                </article>
-              </Reveal>
-            ))}
-          </div>
+          <Reveal delay={80}>
+            <PodcastsSection initialPodcasts={podcasts} />
+          </Reveal>
         </div>
       </section>
 

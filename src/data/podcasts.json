@@ -1,0 +1,38 @@
+[
+  {
+    "number": "01",
+    "title": "¿Qué hacemos aquí? Presentación del proyecto",
+    "description": "Presentación del proyecto IA para Todos y de lo que viene.",
+    "spotifyUrl": ""
+  },
+  {
+    "number": "02",
+    "title": "IA Ética: ¿quién responde cuando la máquina falla?",
+    "description": "Ética y responsabilidad en el uso de la inteligencia artificial.",
+    "spotifyUrl": ""
+  },
+  {
+    "number": "03",
+    "title": "IA en la vida estudiantil",
+    "description": "Cómo la IA acompaña el estudio sin reemplazar el criterio.",
+    "spotifyUrl": ""
+  },
+  {
+    "number": "04",
+    "title": "Deepfakes, videos y confianza digital",
+    "description": "Aprende a dudar de la información y detectar contenido falso.",
+    "spotifyUrl": ""
+  },
+  {
+    "number": "05",
+    "title": "Herramientas IA que sí ayudan",
+    "description": "Herramientas útiles de IA para estudiar y crear.",
+    "spotifyUrl": ""
+  },
+  {
+    "number": "06",
+    "title": "Lo que aprendimos y lo que viene",
+    "description": "Cierre del proyecto: aprendizajes y próximos pasos.",
+    "spotifyUrl": ""
+  }
+]

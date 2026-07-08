@@ -1,6 +1,6 @@
-import AdminPanel from "./panel";
+import AdminDashboard from "./dashboard";
 import StaticAdminNotice from "./static-notice";
-import { videos } from "@/data/project";
+import { videos, podcasts } from "@/data/project";
 
 export const metadata = {
   title: "Panel de administracion"
@@ -11,5 +11,5 @@ export default function AdminPage() {
     return <StaticAdminNotice />;
   }
 
-  return <AdminPanel initialVideos={videos} />;
+  return <AdminDashboard initialVideos={videos} initialPodcasts={podcasts} />;
 }

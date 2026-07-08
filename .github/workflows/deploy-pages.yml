@@ -1,9 +1,9 @@
 name: Deploy GitHub Pages
 
+# El sitio se publica en Vercel (con panel de administración dinámico). El
+# export estático de GitHub Pages no es compatible con las rutas de API del
+# admin, por eso este workflow ya no corre en cada push (solo manualmente).
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 permissions:

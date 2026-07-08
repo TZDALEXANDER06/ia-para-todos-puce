@@ -27,12 +27,7 @@ export const team = [
 
 export const videos = videosData;
 
-export const podcast = [
-  "¿Qué hacemos aquí? Presentación del proyecto",
-  "IA Ética: ¿quién responde cuando la máquina falla?",
-  "IA en la vida estudiantil",
-  "Deepfakes, videos y confianza digital",
-  "Herramientas IA que sí ayudan",
-  "Lo que aprendimos y lo que viene"
-];
+export const podcasts = podcastsData;
+
 import videosData from "./videos.json";
+import podcastsData from "./podcasts.json";
