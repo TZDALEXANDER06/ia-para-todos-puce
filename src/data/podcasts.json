@@ -7,9 +7,9 @@
   },
   {
     "number": "02",
-    "title": "IA Ética: ¿quién responde cuando la máquina falla?",
-    "description": "Ética y responsabilidad en el uso de la inteligencia artificial.",
-    "spotifyUrl": ""
+    "title": "Cómo usar la IA sin perder tu creatividad",
+    "description": "En este episodio de \"IA para todos\", Aurelio, el oso de la PUCE, nos recuerda que usar la IA de forma responsable es tan importante como conocer sus beneficios. Depender 100% de los algoritmos puede limitar el desarrollo de nuestras propias habilidades y creatividad.",
+    "spotifyUrl": "https://open.spotify.com/episode/0p0IYLz6xYCLugQXsaJebg"
   },
   {
     "number": "03",
@@ -21,12 +21,6 @@
     "number": "04",
     "title": "Deepfakes, videos y confianza digital",
     "description": "Aprende a dudar de la información y detectar contenido falso.",
-    "spotifyUrl": ""
-  },
-  {
-    "number": "05",
-    "title": "Herramientas IA que sí ayudan",
-    "description": "Herramientas útiles de IA para estudiar y crear.",
     "spotifyUrl": ""
   }
 ]
