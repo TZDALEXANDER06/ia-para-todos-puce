@@ -1147,9 +1147,9 @@ img {
   font-size: 0.82rem;
   font-weight: 700;
   gap: 5px;
+  left: 10px;
   padding: 4px 9px;
   position: absolute;
-  right: 10px;
   z-index: 1;
 }
 

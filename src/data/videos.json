@@ -5,7 +5,8 @@
     "topic": "En este video Aurelio nos explica de manera sencilla qué es la inteligencia artificial, cómo funciona y por qué se ha convertido en una herramienta importante en la actualidad.",
     "audience": "Universitarios, docentes y profesionales.",
     "status": "Planificado",
-    "youtubeUrl": "https://www.youtube.com/watch?v=qvRj8apnn_s"
+    "youtubeUrl": "https://www.youtube.com/watch?v=qvRj8apnn_s",
+    "duration": "1:22"
   },
   {
     "number": "02",
@@ -13,7 +14,8 @@
     "topic": "En este video Aurelio nos presenta cómo ha evolucionado la inteligencia artificial, desde sus inicios hasta sus aplicaciones actuales en la educación, la tecnología, la salud y la vida cotidiana.",
     "audience": "Estudiantes universitarios y docentes.",
     "status": "Planificado",
-    "youtubeUrl": "https://www.youtube.com/watch?v=FmSwiir1_zk"
+    "youtubeUrl": "https://www.youtube.com/watch?v=FmSwiir1_zk",
+    "duration": "1:38"
   },
   {
     "number": "03",
@@ -21,7 +23,8 @@
     "topic": "En este video Aurelio explica qué es la inteligencia artificial generativa y cómo permite crear textos, imágenes, música, datos y otros contenidos mediante herramientas digitales actuales.",
     "audience": "Ciudadania digital, jovenes y adultos.",
     "status": "Planificado",
-    "youtubeUrl": "https://www.youtube.com/watch?v=O319ZB_1JYc"
+    "youtubeUrl": "https://www.youtube.com/watch?v=O319ZB_1JYc",
+    "duration": "1:40"
   },
   {
     "number": "04",
@@ -29,7 +32,8 @@
     "topic": "En este video Aurelio muestra cómo la inteligencia artificial puede apoyar el aprendizaje mediante resúmenes, explicaciones y ejercicios, promoviendo un uso responsable, sin copiar y fortaleciendo el pensamiento crítico.",
     "audience": "Jovenes, profesionales y emprendedores.",
     "status": "Planificado",
-    "youtubeUrl": "https://www.youtube.com/watch?v=xhKBzi-MmUE"
+    "youtubeUrl": "https://www.youtube.com/watch?v=xhKBzi-MmUE",
+    "duration": "1:22"
   },
   {
     "number": "05",
@@ -37,7 +41,8 @@
     "topic": "Este video presenta la importancia de utilizar la inteligencia artificial de forma ética en el ámbito universitario, promoviendo principios como la transparencia, la equidad y el aprendizaje responsable.",
     "audience": "Estudiantes de cualquier carrera.",
     "status": "Planificado",
-    "youtubeUrl": "https://www.youtube.com/watch?v=OSdnbukSr2Y"
+    "youtubeUrl": "https://www.youtube.com/watch?v=OSdnbukSr2Y",
+    "duration": "1:30"
   },
   {
     "number": "06",
@@ -45,25 +50,29 @@
     "topic": "En este video se muestra cómo la inteligencia artificial está presente en la vida diaria de los estudiantes, apoyando tareas, estudios y decisiones, pero recordando la importancia de usarla con criterio y pensamiento propio.",
     "audience": "Comunidad PUCE y publico general.",
     "status": "Planificado",
-    "youtubeUrl": "https://www.youtube.com/watch?v=hs21F0DH4us"
+    "youtubeUrl": "https://www.youtube.com/watch?v=hs21F0DH4us",
+    "duration": "2:54"
   },
   {
     "number": "07",
     "title": "Pensar con IA: Menos Resumen, Más Criterio",
     "topic": "En este video muestra que la inteligencia artificial no debe usarse solo para resumir información, sino como una herramienta para analizar, contrastar ideas y fortalecer el pensamiento crítico en la universidad.",
-    "youtubeUrl": "https://www.youtube.com/watch?v=LkBflcm-iWk"
+    "youtubeUrl": "https://www.youtube.com/watch?v=LkBflcm-iWk",
+    "duration": "1:44"
   },
   {
     "number": "08",
     "title": "Más Allá del Algoritmo: La IA Necesita Criterio Humano",
     "topic": "Este video muestra que la inteligencia artificial puede ser una gran herramienta de apoyo, pero el verdadero aprendizaje comienza cuando el estudiante analiza, interpreta y decide con pensamiento crítico.",
-    "youtubeUrl": "https://www.youtube.com/watch?v=dmXxSmZfguo"
+    "youtubeUrl": "https://www.youtube.com/watch?v=dmXxSmZfguo",
+    "duration": "1:58"
   },
   {
     "number": "09",
     "title": "El Futuro de la IA Sigue Siendo Humano",
     "topic": "Este video reflexiona sobre cómo la inteligencia artificial puede acompañar el aprendizaje y la vida universitaria, recordando que el criterio, la creatividad y las decisiones responsables siguen dependiendo de las personas.",
-    "youtubeUrl": "https://www.youtube.com/watch?v=wJqb1UW3ulw"
+    "youtubeUrl": "https://www.youtube.com/watch?v=wJqb1UW3ulw",
+    "duration": "1:48"
   },
   {
     "number": "10",
@@ -75,30 +84,35 @@
     "number": "11",
     "title": " ¿A dónde van tus datos cuando usas Inteligencia Artificial?",
     "topic": "En este video, analizamos la realidad detrás de las herramientas de Inteligencia Artificial y los riesgos de privacidad a los que exponemos nuestros proyectos sin darnos cuenta.",
-    "youtubeUrl": "https://www.youtube.com/watch?v=DTVo2Wt78js"
+    "youtubeUrl": "https://www.youtube.com/watch?v=DTVo2Wt78js",
+    "duration": "1:49"
   },
   {
     "number": "12",
     "title": "La IA es tu equipo, no tu reemplazo",
     "topic": "La inteligencia artificial es excelente procesando datos complejos, pero carece de algo esencial: tu empatía, valores y perspectiva humana. Usar la tecnología con ética significa que tú eres el director del proyecto y no al revés.",
-    "youtubeUrl": "https://www.youtube.com/watch?v=-1lrw2XMo28"
+    "youtubeUrl": "https://www.youtube.com/watch?v=-1lrw2XMo28",
+    "duration": "1:49"
   },
   {
     "number": "13",
     "title": "De espectador a creador de IA",
     "topic": "En la carrera de Ingeniería en Sistemas de la Información de la PUCE, dejarás de ser un usuario más para convertirte en el arquitecto del futuro digital. Aprende a dominar el desarrollo de software, el análisis de datos y la Inteligencia Artificial con una visión ética y estratégica.",
-    "youtubeUrl": "https://www.youtube.com/watch?v=ec79BFcU47w"
+    "youtubeUrl": "https://www.youtube.com/watch?v=ec79BFcU47w",
+    "duration": "1:50"
   },
   {
     "number": "14",
     "title": " IA y Ciberseguridad con Aurelio",
     "topic": "En este episodio de \"IA para todos\", Aurelio, el oso de la PUCE, nos explica cómo la IA identifica amenazas digitales en segundos. Sin embargo, la tecnología necesita de tu ayuda: ¡un usuario informado y responsable es la mejor defensa!",
-    "youtubeUrl": "https://www.youtube.com/watch?v=EWpaTagQiRo"
+    "youtubeUrl": "https://www.youtube.com/watch?v=EWpaTagQiRo",
+    "duration": "1:32"
   },
   {
     "number": "15",
     "title": " ¿Cómo usar la IA sin meter la pata?",
     "topic": "En este video Aurelio nos explica la manera correcta de usar la IA de forma ética, ya que trabajan con mucha información privada.",
-    "youtubeUrl": "https://www.youtube.com/watch?v=1izg6VRIbfY"
+    "youtubeUrl": "https://www.youtube.com/watch?v=1izg6VRIbfY",
+    "duration": "3:52"
   }
 ]

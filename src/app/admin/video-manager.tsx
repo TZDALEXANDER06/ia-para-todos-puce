@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   getVideoEmbedUrl,
   getVideoProvider,
@@ -44,6 +44,7 @@ export default function VideoManager({
   const [justAdded, setJustAdded] = useState(false);
   const [saveMessage, setSaveMessage] = useState("");
   const [previewIndex, setPreviewIndex] = useState<number | null>(null);
+  const lookupTimers = useRef<Record<number, number>>({});
 
   useEffect(() => {
     async function loadVideos() {
@@ -84,18 +85,54 @@ export default function VideoManager({
     return true;
   }
 
+  // Al pegar un enlace de YouTube, busca la duración y rellena el campo si
+  // está vacío. Se aplaza un momento para no consultar en cada tecla.
+  function scheduleDurationLookup(index: number, url: string) {
+    window.clearTimeout(lookupTimers.current[index]);
+
+    if (getVideoProvider(url) !== "youtube") {
+      return;
+    }
+
+    lookupTimers.current[index] = window.setTimeout(async () => {
+      try {
+        const response = await fetch(
+          `/api/video-duration?url=${encodeURIComponent(url)}`
+        );
+        if (!response.ok) {
+          return;
+        }
+        const { duration } = await response.json();
+        if (!duration) {
+          return;
+        }
+        setVideos((current) =>
+          current.map((video, currentIndex) =>
+            currentIndex === index && !video.duration?.trim()
+              ? { ...video, duration }
+              : video
+          )
+        );
+      } catch {
+        // Si falla, el usuario puede escribir la duración a mano.
+      }
+    }, 700);
+  }
+
   function updateVideo(index: number, field: keyof Video, value: string) {
+    const nextValue =
+      field === "youtubeUrl" ? normalizeVideoUrl(value) : value;
+
     setVideos((currentVideos) =>
       currentVideos.map((video, currentIndex) =>
-        currentIndex === index
-          ? {
-              ...video,
-              [field]: field === "youtubeUrl" ? normalizeVideoUrl(value) : value
-            }
-          : video
+        currentIndex === index ? { ...video, [field]: nextValue } : video
       )
     );
     setSaveMessage("");
+
+    if (field === "youtubeUrl") {
+      scheduleDurationLookup(index, nextValue);
+    }
   }
 
   async function addVideo() {
@@ -345,7 +382,7 @@ export default function VideoManager({
                 </label>
 
                 <label>
-                  <span>Duración del video (opcional)</span>
+                  <span>Duración (se detecta sola en YouTube)</span>
                   <input
                     onChange={(event) =>
                       updateVideo(index, "duration", event.target.value)
