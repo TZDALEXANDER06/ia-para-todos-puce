@@ -13,6 +13,7 @@ type Video = {
   title: string;
   topic: string;
   youtubeUrl?: string;
+  duration?: string;
 };
 
 const providerLabels: Record<string, string> = {
@@ -104,7 +105,8 @@ export default function VideoManager({
         number: getNextVideoNumber(videos),
         title: "",
         topic: "",
-        youtubeUrl: ""
+        youtubeUrl: "",
+        duration: ""
       }
     ];
 
@@ -339,6 +341,17 @@ export default function VideoManager({
                     }
                     placeholder="https://youtu.be/... o https://drive.google.com/file/d/..."
                     value={video.youtubeUrl ?? ""}
+                  />
+                </label>
+
+                <label>
+                  <span>Duración del video (opcional)</span>
+                  <input
+                    onChange={(event) =>
+                      updateVideo(index, "duration", event.target.value)
+                    }
+                    placeholder="Ej. 8:42"
+                    value={video.duration ?? ""}
                   />
                 </label>
 

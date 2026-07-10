@@ -9,6 +9,7 @@ type Video = {
   title: string;
   topic: string;
   youtubeUrl?: string;
+  duration?: string;
 };
 
 const DATA_PATH = "src/data/videos.json";
@@ -26,7 +27,9 @@ function isValidVideos(value: unknown): value is Video[] {
         typeof (video as Video).title === "string" &&
         typeof (video as Video).topic === "string" &&
         ((video as Video).youtubeUrl === undefined ||
-          typeof (video as Video).youtubeUrl === "string")
+          typeof (video as Video).youtubeUrl === "string") &&
+        ((video as Video).duration === undefined ||
+          typeof (video as Video).duration === "string")
     )
   );
 }
