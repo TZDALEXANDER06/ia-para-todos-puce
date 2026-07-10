@@ -35,13 +35,17 @@ export default function Reveal({
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
+          // Se revela apenas cualquier parte entra en pantalla (threshold 0) o
+          // si el elemento ya quedó por encima (scroll rápido). Con un umbral
+          // alto, los bloques muy altos (p. ej. la rejilla de videos) podían
+          // quedar sin revelarse.
+          if (entry.isIntersecting || entry.boundingClientRect.top < 0) {
             setVisible(true);
             observer.disconnect();
           }
         });
       },
-      { threshold: 0.15, rootMargin: "0px 0px -60px 0px" }
+      { threshold: 0, rootMargin: "0px 0px -80px 0px" }
     );
 
     observer.observe(node);

@@ -2497,8 +2497,8 @@ img {
     display: inline-flex;
   }
 
-  .headerLogo {
-    display: none;
+  .headerLogo img {
+    height: 32px;
   }
 
   .navLinks {
