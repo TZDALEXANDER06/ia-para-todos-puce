@@ -744,7 +744,7 @@ img {
 .metrics {
   display: grid;
   gap: 20px;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   margin-bottom: clamp(20px, 4vw, 40px);
 }
 
@@ -872,12 +872,29 @@ img {
 .igHandle {
   color: white;
   font-family: var(--font-display);
-  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  font-size: clamp(1rem, 1.35vw, 1.2rem);
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.2;
   margin-top: auto;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
   position: relative;
+}
+
+/* Variante Spotify de la tarjeta social */
+.spCard {
+  background: linear-gradient(140deg, #1ed760 0%, #1db954 45%, #0d7a37 100%);
+}
+
+.spCard::before {
+  background: radial-gradient(circle at 82% 4%, rgba(255, 255, 255, 0.3), transparent 58%);
+}
+
+.spCard:hover {
+  box-shadow: 0 30px 60px -22px rgba(29, 185, 84, 0.6);
+}
+
+.spCard .igFollow {
+  color: #0d7a37;
 }
 
 .igLabel {
@@ -2575,10 +2592,6 @@ img {
 @media (max-width: 1080px) {
   .metrics {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  .igCard {
-    grid-column: 1 / -1;
   }
 
   .podcastGrid {

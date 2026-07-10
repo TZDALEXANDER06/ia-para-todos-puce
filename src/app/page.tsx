@@ -71,9 +71,36 @@ export default function Home() {
               </span>
               <span className="igFollow">Síguenos</span>
             </span>
-            <strong className="igHandle">@uso_etico_de_ia_puce</strong>
+            <strong className="igHandle">
+              @uso_etico_<wbr />de_ia_<wbr />puce
+            </strong>
             <span className="igLabel">
               Nuestra comunidad en Instagram
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
+          </a>
+
+          <a
+            className="igCard spCard"
+            href="https://open.spotify.com/show/033M3Ff6f9seP2r6A9Ib5F"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Escúchanos en Spotify: Campaña Uso Ético de la IA"
+          >
+            <span className="igTop">
+              <span className="igIcon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.8" />
+                  <path d="M7.5 14.5c2.8-1 6-0.8 8.5 0.7M7 11.4c3.4-1.1 7-0.8 10 1M7 8.4c3.8-1.1 7.8-0.7 10.5 1" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                </svg>
+              </span>
+              <span className="igFollow">Escúchanos</span>
+            </span>
+            <strong className="igHandle">Campaña Uso Ético de la IA</strong>
+            <span className="igLabel">
+              Nuestro podcast en Spotify
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
