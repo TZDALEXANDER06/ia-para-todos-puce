@@ -146,10 +146,10 @@
   },
   {
     "number": "20",
-    "title": "Usa la Tecnología con  Criterio",
-    "topic": "Este video explica los principios del uso ético de la inteligencia artificial, destacando la importancia de la privacidad, la transparencia, la equidad y el pensamiento crítico al utilizar herramientas de IA.",
-    "youtubeUrl": "https://drive.google.com/file/d/1_M6587HZJkHkbReklc_s1goz2b76_6as/view?usp=sharing",
-    "duration": "3:52"
+    "title": "Innovar con Ética y Criterio",
+    "topic": "Este video presenta cómo la inteligencia artificial puede apoyar el aprendizaje, la creatividad y el análisis de información, destacando la importancia de usarla con responsabilidad, dignidad y pensamiento crítico.",
+    "youtubeUrl": "https://www.youtube.com/watch?v=WiWpdR_NsoU",
+    "duration": "1:36"
   },
   {
     "number": "21",
@@ -157,5 +157,12 @@
     "topic": "Este video muestra la importancia de usar la inteligencia artificial como apoyo para generar ideas, revisar trabajos y mejorar el aprendizaje, sin dejar que reemplace la voz propia ni el pensamiento crítico.",
     "youtubeUrl": "https://drive.google.com/file/d/1CHcqHXSVheAPNJ51YdynEMkLY2GGFwd_/view?usp=sharing",
     "duration": "0:59"
+  },
+  {
+    "number": "22",
+    "title": "",
+    "topic": "",
+    "youtubeUrl": "",
+    "duration": ""
   }
 ]
